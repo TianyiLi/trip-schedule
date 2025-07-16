@@ -1,0 +1,236 @@
+{
+  "app": {
+    "title": "旅行規劃師",
+    "subtitle": "用智能行程管理規劃您的完美旅程"
+  },
+  "navigation": {
+    "home": "首頁",
+    "planning": "規劃",
+    "navigate": "導航",
+    "archived": "已封存",
+    "settings": "設定"
+  },
+  "home": {
+    "title": "旅行規劃師",
+    "subtitle": "用智能行程管理規劃您的完美旅程",
+    "stats": {
+      "activeTrips": "進行中行程",
+      "completedTrips": "已完成行程",
+      "totalLocations": "總地點數"
+    },
+    "search": {
+      "placeholder": "搜尋行程...",
+      "filter": {
+        "all": "所有行程",
+        "active": "進行中",
+        "completed": "已完成"
+      }
+    },
+    "newTrip": "新增行程",
+    "noTrips": {
+      "title": "找不到行程",
+      "searchMessage": "請調整搜尋條件",
+      "emptyMessage": "建立您的第一個行程開始使用",
+      "createButton": "建立新行程"
+    }
+  },
+  "trip": {
+    "viewDetails": "查看詳情",
+    "editTrip": "編輯行程",
+    "markComplete": "標記完成",
+    "deleteTrip": "刪除行程",
+    "continuePlanning": "繼續規劃",
+    "viewTrip": "查看行程",
+    "completed": "已完成",
+    "days": "天",
+    "locations": "個地點"
+  },
+  "createTrip": {
+    "title": "建立新行程",
+    "form": {
+      "tripTitle": "行程標題",
+      "tripTitleRequired": "行程標題 *",
+      "description": "描述",
+      "descriptionPlaceholder": "簡短描述您的行程",
+      "startDate": "開始日期 *",
+      "endDate": "結束日期 *",
+      "titlePlaceholder": "輸入行程標題"
+    },
+    "buttons": {
+      "cancel": "取消",
+      "create": "建立行程"
+    },
+    "validation": {
+      "requiredFields": "請填寫所有必填欄位"
+    }
+  },
+  "planning": {
+    "title": "行程規劃",
+    "backToHome": "返回首頁",
+    "noTripSelected": {
+      "title": "未選擇行程",
+      "message": "請從首頁選擇一個行程開始規劃。",
+      "backButton": "返回首頁"
+    },
+    "viewMode": {
+      "list": "清單檢視",
+      "map": "地圖檢視"
+    },
+    "addLocation": "新增地點",
+    "save": "儲存",
+    "itinerary": "行程表",
+    "mapView": "地圖檢視",
+    "noLocations": {
+      "title": "尚未新增地點",
+      "message": "開始新增地點來建立您的行程",
+      "addButton": "新增第一個地點",
+      "mapMessage": "新增地點以在地圖上查看"
+    }
+  },
+  "addLocation": {
+    "title": "新增地點",
+    "form": {
+      "searchLocation": "搜尋地點",
+      "searchPlaceholder": "搜尋地點...",
+      "locationName": "地點名稱 *",
+      "locationNamePlaceholder": "輸入地點名稱",
+      "address": "地址 *",
+      "addressPlaceholder": "輸入完整地址",
+      "visitTime": "參觀時間",
+      "duration": "停留時間（分鐘）",
+      "durationPlaceholder": "60",
+      "notes": "備註",
+      "notesPlaceholder": "任何特殊備註或要求..."
+    },
+    "buttons": {
+      "cancel": "取消",
+      "add": "新增地點"
+    },
+    "validation": {
+      "requiredFields": "請填寫地點名稱和地址"
+    }
+  },
+  "navigation": {
+    "title": "導航",
+    "progress": "進度",
+    "currentDestination": "目前目的地",
+    "nextDestination": "下個目的地",
+    "buttons": {
+      "previous": "上一個",
+      "next": "下一個",
+      "navigate": "導航",
+      "viewOnMap": "在地圖上查看",
+      "markComplete": "標記完成"
+    },
+    "completed": "已完成",
+    "scheduled": "預定時間",
+    "estimatedDuration": "預估停留時間",
+    "minutes": "分鐘",
+    "routeOverview": "路線概覽",
+    "todayItinerary": "今日行程",
+    "noActiveTrip": {
+      "title": "沒有進行中的行程",
+      "message": "您目前沒有進行中的行程可以導航。建立新行程開始使用。",
+      "button": "前往首頁"
+    }
+  },
+  "archived": {
+    "title": "已封存行程",
+    "subtitle": "您完成的旅行回憶",
+    "search": {
+      "placeholder": "搜尋已封存行程..."
+    },
+    "stats": {
+      "completedTrips": "已完成行程",
+      "totalLocationsVisited": "總參觀地點數",
+      "totalTravelDays": "總旅行天數"
+    },
+    "export": "匯出為 CSV",
+    "delete": "刪除行程",
+    "noTrips": {
+      "searchTitle": "找不到符合的行程",
+      "emptyTitle": "沒有已封存行程",
+      "searchMessage": "請調整搜尋條件",
+      "emptyMessage": "完成一些行程後會顯示在這裡"
+    },
+    "locationsVisited": "個地點已參觀",
+    "deleteConfirm": "您確定要永久刪除此行程嗎？"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "管理您的旅行規劃師偏好設定和資料",
+    "account": {
+      "title": "帳戶設定",
+      "displayName": "顯示名稱",
+      "displayNamePlaceholder": "輸入您的姓名",
+      "email": "電子郵件",
+      "emailPlaceholder": "輸入您的電子郵件",
+      "googleAccount": "Google 帳戶",
+      "connected": "已連接",
+      "notConnected": "未連接",
+      "connect": "連接 Google",
+      "disconnect": "中斷連接"
+    },
+    "data": {
+      "title": "資料管理",
+      "exportFormat": "匯出格式",
+      "jsonFormat": "JSON（完整備份）",
+      "csvFormat": "CSV（試算表）",
+      "exportData": "匯出資料",
+      "importData": "匯入資料",
+      "clearAllData": "清除所有資料",
+      "clearConfirm": "您確定要清除所有資料嗎？此操作無法復原。",
+      "importSuccess": "資料匯入成功！",
+      "importError": "匯入資料時發生錯誤。請檢查檔案格式。",
+      "invalidFormat": "無效的檔案格式"
+    },
+    "app": {
+      "title": "應用程式資訊",
+      "version": "版本",
+      "totalTrips": "總行程數",
+      "activeTrips": "進行中行程",
+      "completedTrips": "已完成行程"
+    },
+    "help": {
+      "title": "需要幫助？",
+      "userGuide": "使用指南",
+      "faq": "常見問題",
+      "contactSupport": "聯絡支援"
+    },
+    "language": {
+      "title": "語言",
+      "select": "選擇語言"
+    }
+  },
+  "location": {
+    "openInGoogleMaps": "在 Google 地圖中開啟",
+    "navigate": "導航",
+    "scheduled": "預定時間",
+    "duration": "停留時間",
+    "minutes": "分鐘"
+  },
+  "common": {
+    "loading": "載入中...",
+    "error": "錯誤",
+    "success": "成功",
+    "confirm": "確認",
+    "cancel": "取消",
+    "save": "儲存",
+    "delete": "刪除",
+    "edit": "編輯",
+    "add": "新增",
+    "search": "搜尋",
+    "filter": "篩選",
+    "close": "關閉",
+    "back": "返回",
+    "next": "下一個",
+    "previous": "上一個",
+    "yes": "是",
+    "no": "否"
+  },
+  "date": {
+    "today": "今天",
+    "yesterday": "昨天",
+    "tomorrow": "明天"
+  }
+}
