@@ -64,7 +64,7 @@ const tripReducer = (state: TripState, action: TripAction): TripState => {
             : trip
         ),
         currentTrip: state.currentTrip?.id === action.payload.tripId
-          ? { ...state.currentTrip, locations: action.payload.locations }
+          ? { ...state.currentTrip, locations: action.payload.locations, updatedAt: new Date() }
           : state.currentTrip,
       };
     case 'SET_LOADING':

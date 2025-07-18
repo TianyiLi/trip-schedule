@@ -205,6 +205,7 @@
   "location": {
     "openInGoogleMaps": "Googleマップで開く",
     "navigate": "ナビゲート",
+    "remove": "削除",
     "scheduled": "予定時間",
     "duration": "滞在時間",
     "minutes": "分"

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { X, Search } from 'lucide-react';
+import React, { useState, useCallback, useRef } from 'react';
+import { X, Search, Loader2 } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import { Location } from '../../../shared/types';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,13 +17,18 @@ const AddLocationModal: React.FC<AddLocationModalProps> = ({ onClose, onAdd }) =
     visitTime: '',
     estimatedDuration: '',
     notes: '',
+    coordinates: null as { lat: number; lng: number } | null,
   });
 
   const [searchResults, setSearchResults] = useState<Array<{
     name: string;
     address: string;
     place_id: string;
+    lat: number;
+    lng: number;
   }>>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,8 +42,8 @@ const AddLocationModal: React.FC<AddLocationModalProps> = ({ onClose, onAdd }) =
       id: uuidv4(),
       name: formData.name,
       address: formData.address,
-      coordinates: {
-        lat: 25.033 + Math.random() * 0.1, // Mock coordinates
+      coordinates: formData.coordinates || {
+        lat: 25.033 + Math.random() * 0.1, // Fallback coordinates (Taipei)
         lng: 121.5654 + Math.random() * 0.1,
       },
       visitTime: formData.visitTime || undefined,
@@ -49,41 +54,66 @@ const AddLocationModal: React.FC<AddLocationModalProps> = ({ onClose, onAdd }) =
     onAdd(newLocation);
   };
 
-  const handleSearchLocation = (searchTerm: string) => {
+  // Debounced search function
+  const debouncedSearch = useCallback(
+    (searchTerm: string) => {
+      // Clear previous timeout
+      if (debounceTimer.current) {
+        clearTimeout(debounceTimer.current);
+      }
+      
+      // Set new timeout
+      debounceTimer.current = setTimeout(() => {
+        handleSearchLocation(searchTerm);
+      }, 300);
+    },
+    []
+  );
+
+  const handleSearchLocation = async (searchTerm: string) => {
     if (!searchTerm.trim()) {
       setSearchResults([]);
       return;
     }
 
-    // Mock search results - in real app, this would use Google Places API
-    setTimeout(() => {
-      const mockResults = [
+    setIsSearching(true);
+    
+    try {
+      // Using OpenStreetMap Nominatim API (free)
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(searchTerm)}&limit=5&addressdetails=1`,
         {
-          name: `${searchTerm} Restaurant`,
-          address: `123 Main St, ${searchTerm}`,
-          place_id: '1',
-        },
-        {
-          name: `${searchTerm} Museum`,
-          address: `456 Cultural Ave, ${searchTerm}`,
-          place_id: '2',
-        },
-        {
-          name: `${searchTerm} Park`,
-          address: `789 Nature Blvd, ${searchTerm}`,
-          place_id: '3',
-        },
-      ];
+          headers: {
+            'User-Agent': 'TripSchedule/1.0'
+          }
+        }
+      );
       
-      setSearchResults(mockResults);
-    }, 500);
+      const data = await response.json();
+      
+      const results = data.map((place: any) => ({
+        name: place.display_name.split(',')[0],
+        address: place.display_name,
+        place_id: place.place_id.toString(),
+        lat: parseFloat(place.lat),
+        lng: parseFloat(place.lon)
+      }));
+      
+      setSearchResults(results);
+    } catch (error) {
+      console.error('Search failed:', error);
+      setSearchResults([]);
+    } finally {
+      setIsSearching(false);
+    }
   };
 
-  const handleSelectPlace = (place: { name: string; address: string; place_id: string }) => {
+  const handleSelectPlace = (place: { name: string; address: string; place_id: string; lat: number; lng: number }) => {
     setFormData({
       ...formData,
       name: place.name,
       address: place.address,
+      coordinates: { lat: place.lat, lng: place.lng },
     });
     setSearchResults([]);
   };
@@ -111,9 +141,14 @@ const AddLocationModal: React.FC<AddLocationModalProps> = ({ onClose, onAdd }) =
               <input
                 type="text"
                 placeholder={t('addLocation.form.searchPlaceholder')}
-                onChange={(e) => handleSearchLocation(e.target.value)}
+                onChange={(e) => debouncedSearch(e.target.value)}
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
+              {isSearching && (
+                <div className="absolute right-3 top-3">
+                  <Loader2 className="text-gray-400 animate-spin" size={20} />
+                </div>
+              )}
             </div>
             
             {searchResults.length > 0 && (

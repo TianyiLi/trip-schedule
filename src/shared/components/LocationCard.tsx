@@ -1,6 +1,6 @@
 import React from 'react';
 import { Location } from '../types';
-import { MapPin, Clock, Navigation, GripVertical } from 'lucide-react';
+import { MapPin, Clock, Navigation, GripVertical, X } from 'lucide-react';
 import { Draggable } from 'react-beautiful-dnd';
 import { useTranslation } from 'react-i18next';
 
@@ -16,6 +16,7 @@ interface LocationCardProps {
 const LocationCard: React.FC<LocationCardProps> = ({
   location,
   index,
+  onDelete,
 }) => {
   const { t } = useTranslation();
   
@@ -97,6 +98,16 @@ const LocationCard: React.FC<LocationCardProps> = ({
                 >
                   <Navigation size={16} />
                 </button>
+                
+                {onDelete && (
+                  <button
+                    onClick={() => onDelete(location.id)}
+                    className="p-2 bg-red-100 hover:bg-red-200 text-red-600 rounded-lg transition-colors"
+                    title={t('location.remove')}
+                  >
+                    <X size={16} />
+                  </button>
+                )}
               </div>
             </div>
           </div>

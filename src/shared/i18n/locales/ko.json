@@ -205,6 +205,7 @@
   "location": {
     "openInGoogleMaps": "Google 지도에서 열기",
     "navigate": "내비게이션",
+    "remove": "제거",
     "scheduled": "예정 시간",
     "duration": "체류 시간",
     "minutes": "분"

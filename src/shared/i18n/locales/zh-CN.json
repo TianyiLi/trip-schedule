@@ -205,6 +205,7 @@
   "location": {
     "openInGoogleMaps": "在 Google 地图中打开",
     "navigate": "导航",
+    "remove": "移除",
     "scheduled": "预定时间",
     "duration": "停留时间",
     "minutes": "分钟"

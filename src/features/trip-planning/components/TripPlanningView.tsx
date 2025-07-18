@@ -15,6 +15,7 @@ interface TripPlanningViewProps {
   onShowAddLocation: (show: boolean) => void;
   onDragEnd: (result: DropResult) => void;
   onAddLocation: (location: Location) => void;
+  onRemoveLocation: (locationId: string) => void;
   onSaveTrip: () => void;
   onBackToHome: () => void;
 }
@@ -27,6 +28,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
   onShowAddLocation,
   onDragEnd,
   onAddLocation,
+  onRemoveLocation,
   onSaveTrip,
   onBackToHome,
 }) => {
@@ -66,7 +68,8 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
           </div>
           
           <div className="flex items-center space-x-4">
-            <div className="flex bg-gray-100 rounded-lg p-1">
+            {/* View mode toggle temporarily disabled */}
+            {/* <div className="flex bg-gray-100 rounded-lg p-1">
               <button
                 onClick={() => onViewModeChange('list')}
                 className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
@@ -87,7 +90,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
               >
                 {t('planning.viewMode.map')}
               </button>
-            </div>
+            </div> */}
             
             <button
               onClick={() => onShowAddLocation(true)}
@@ -109,7 +112,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
       </div>
 
       {/* Content */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="max-w-4xl mx-auto">
         {/* Locations List */}
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-lg p-6">
@@ -147,6 +150,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
                           key={location.id}
                           location={location}
                           index={index}
+                          onDelete={onRemoveLocation}
                         />
                       ))}
                       {provided.placeholder}
@@ -158,8 +162,8 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
           </div>
         </div>
 
-        {/* Map */}
-        <div className="bg-white rounded-xl shadow-lg p-6">
+        {/* Map view temporarily disabled */}
+        {/* <div className="bg-white rounded-xl shadow-lg p-6">
           <h2 className="text-xl font-bold text-gray-800 mb-6">{t('planning.mapView')}</h2>
           {selectedTrip.locations.length > 0 ? (
             <GoogleMapsComponent
@@ -174,7 +178,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
               </div>
             </div>
           )}
-        </div>
+        </div> */}
       </div>
 
       {/* Add Location Modal */}
