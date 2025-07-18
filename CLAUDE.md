@@ -37,8 +37,8 @@ Each feature follows a strict modular pattern under `src/features/`:
 
 - **React Router**: Nested routing with Layout wrapper
 - **React i18n**: Multi-language support (en, zh-TW, zh-CN, ja, ko)
-- **React Beautiful DnD**: Drag-and-drop for location reordering
-- **Google Maps API**: Map integration (requires API key in `.env`)
+- **React Beautiful DnD**: Drag-and-drop for location reordering (StrictMode disabled for compatibility)
+- **OpenStreetMap Nominatim API**: Free location search service (Google Maps view temporarily disabled)
 - **TailwindCSS**: Styling
 - **TypeScript**: Type safety
 - **Context API**: Global trip state management via `TripContext`
@@ -52,15 +52,28 @@ Each feature follows a strict modular pattern under `src/features/`:
 ### Internationalization
 
 - **i18n Structure**: Language files in `src/shared/i18n/locales/`
+- **Supported Languages**: English (en), Traditional Chinese (zh-TW), Simplified Chinese (zh-CN), Japanese (ja), Korean (ko)
 - **Key Convention**: 
   - `nav.*` for navigation menu items
   - `navigation.*` for navigation feature functionality
+  - `home.*` for home page content
+  - `trip.*` for trip-related actions
+  - `planning.*` for trip planning page
+  - `addLocation.*` for add location modal
+  - `location.*` for location card actions (openInGoogleMaps, navigate, remove, etc.)
+  - `common.*` for shared UI elements
   - Avoid duplicate keys across different contexts
 - **Usage**: Import `useTranslation` and use `t('key.path')`
+- **Implementation Status**: ✅ Fully implemented across all components
 
 ### Important Implementation Notes
 
-- **Google Maps**: Requires `VITE_GOOGLE_MAPS_API_KEY` environment variable
+- **Location Search**: Uses OpenStreetMap Nominatim API (free, no API key required)
+  - Debounced search with 300ms delay
+  - Returns real coordinates for accurate location data
+  - Fallback to Taipei coordinates if no search selection
+- **Google Maps**: Map view temporarily disabled (Google Maps API integration ready but not active)
+- **React StrictMode**: Disabled to ensure React Beautiful DnD compatibility
 - **Component Isolation**: Views must be pure - no context/hooks except `useState`/`useReducer`
 - **File Naming**: Pages use `XXXXPage.tsx` convention
 - **No Direct API calls**: All data operations go through TripContext
@@ -71,8 +84,26 @@ Each feature follows a strict modular pattern under `src/features/`:
 When adding new features:
 1. Create feature module directory structure
 2. Implement Page → Container → View pattern
-3. Add i18n keys for all user-facing text
+3. Add i18n keys for all user-facing text in all 5 language files
 4. Use TripContext for data operations
 5. Ensure components remain pure (props-only)
+
+### Recent Implementation Status
+
+✅ **Completed Features:**
+- Trip CRUD operations (create, read, update, delete)
+- Location management with drag-and-drop reordering
+- Location removal functionality
+- Real-time location search with OpenStreetMap Nominatim API
+- Full i18n support across all components
+- GitHub Pages deployment with routing fix
+
+🚧 **Temporarily Disabled:**
+- Google Maps integration (code exists but commented out)
+- Map view in trip planning page
+
+⚠️ **Known Issues:**
+- React StrictMode disabled for drag-and-drop compatibility
+- Location search requires internet connection
 
 The codebase emphasizes separation of concerns, with clear boundaries between presentation, business logic, and data management layers.
