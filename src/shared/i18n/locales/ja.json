@@ -1,0 +1,236 @@
+{
+  "app": {
+    "title": "旅行プランナー",
+    "subtitle": "インテリジェントな旅程管理で完璧な旅を計画しましょう"
+  },
+  "nav": {
+    "home": "ホーム",
+    "planning": "プランニング",
+    "navigate": "ナビゲート",
+    "archived": "アーカイブ",
+    "settings": "設定"
+  },
+  "home": {
+    "title": "旅行プランナー",
+    "subtitle": "インテリジェントな旅程管理で完璧な旅を計画しましょう",
+    "stats": {
+      "activeTrips": "アクティブな旅行",
+      "completedTrips": "完了した旅行",
+      "totalLocations": "総ロケーション数"
+    },
+    "search": {
+      "placeholder": "旅行を検索...",
+      "filter": {
+        "all": "すべての旅行",
+        "active": "アクティブ",
+        "completed": "完了"
+      }
+    },
+    "newTrip": "新しい旅行",
+    "noTrips": {
+      "title": "旅行が見つかりません",
+      "searchMessage": "検索条件を調整してください",
+      "emptyMessage": "最初の旅行を作成して始めましょう",
+      "createButton": "新しい旅行を作成"
+    }
+  },
+  "trip": {
+    "viewDetails": "詳細を表示",
+    "editTrip": "旅行を編集",
+    "markComplete": "完了にマーク",
+    "deleteTrip": "旅行を削除",
+    "continuePlanning": "プランニングを続ける",
+    "viewTrip": "旅行を表示",
+    "completed": "完了",
+    "days": "日",
+    "locations": "ロケーション"
+  },
+  "createTrip": {
+    "title": "新しい旅行を作成",
+    "form": {
+      "tripTitle": "旅行タイトル",
+      "tripTitleRequired": "旅行タイトル *",
+      "description": "説明",
+      "descriptionPlaceholder": "旅行の簡単な説明",
+      "startDate": "開始日 *",
+      "endDate": "終了日 *",
+      "titlePlaceholder": "旅行タイトルを入力"
+    },
+    "buttons": {
+      "cancel": "キャンセル",
+      "create": "旅行を作成"
+    },
+    "validation": {
+      "requiredFields": "すべての必須フィールドを入力してください"
+    }
+  },
+  "planning": {
+    "title": "旅行プランニング",
+    "backToHome": "ホームに戻る",
+    "noTripSelected": {
+      "title": "旅行が選択されていません",
+      "message": "プランニングを開始するには、ホームページから旅行を選択してください。",
+      "backButton": "ホームに戻る"
+    },
+    "viewMode": {
+      "list": "リスト表示",
+      "map": "マップ表示"
+    },
+    "addLocation": "ロケーションを追加",
+    "save": "保存",
+    "itinerary": "旅程",
+    "mapView": "マップ表示",
+    "noLocations": {
+      "title": "ロケーションが追加されていません",
+      "message": "ロケーションを追加して旅程を構築しましょう",
+      "addButton": "最初のロケーションを追加",
+      "mapMessage": "ロケーションを追加してマップで表示"
+    }
+  },
+  "addLocation": {
+    "title": "ロケーションを追加",
+    "form": {
+      "searchLocation": "ロケーションを検索",
+      "searchPlaceholder": "場所を検索...",
+      "locationName": "ロケーション名 *",
+      "locationNamePlaceholder": "ロケーション名を入力",
+      "address": "住所 *",
+      "addressPlaceholder": "完全な住所を入力",
+      "visitTime": "訪問時間",
+      "duration": "滞在時間（分）",
+      "durationPlaceholder": "60",
+      "notes": "メモ",
+      "notesPlaceholder": "特別なメモや要件..."
+    },
+    "buttons": {
+      "cancel": "キャンセル",
+      "add": "ロケーションを追加"
+    },
+    "validation": {
+      "requiredFields": "ロケーション名と住所を入力してください"
+    }
+  },
+  "navigation": {
+    "title": "ナビゲーション",
+    "progress": "進捗",
+    "currentDestination": "現在の目的地",
+    "nextDestination": "次の目的地",
+    "buttons": {
+      "previous": "前へ",
+      "next": "次へ",
+      "navigate": "ナビゲート",
+      "viewOnMap": "マップで表示",
+      "markComplete": "完了にマーク"
+    },
+    "completed": "完了",
+    "scheduled": "予定時間",
+    "estimatedDuration": "予想滞在時間",
+    "minutes": "分",
+    "routeOverview": "ルート概要",
+    "todayItinerary": "今日の旅程",
+    "noActiveTrip": {
+      "title": "アクティブな旅行がありません",
+      "message": "ナビゲートできるアクティブな旅行がありません。新しい旅行を作成して始めましょう。",
+      "button": "ホームに移動"
+    }
+  },
+  "archived": {
+    "title": "アーカイブされた旅行",
+    "subtitle": "完了した旅の思い出",
+    "search": {
+      "placeholder": "アーカイブされた旅行を検索..."
+    },
+    "stats": {
+      "completedTrips": "完了した旅行",
+      "totalLocationsVisited": "総訪問ロケーション数",
+      "totalTravelDays": "総旅行日数"
+    },
+    "export": "CSVにエクスポート",
+    "delete": "旅行を削除",
+    "noTrips": {
+      "searchTitle": "一致する旅行が見つかりません",
+      "emptyTitle": "アーカイブされた旅行がありません",
+      "searchMessage": "検索条件を調整してください",
+      "emptyMessage": "旅行を完了するとここに表示されます"
+    },
+    "locationsVisited": "ロケーション訪問済み",
+    "deleteConfirm": "この旅行を永久に削除してもよろしいですか？"
+  },
+  "settings": {
+    "title": "設定",
+    "subtitle": "旅行プランナーの設定とデータを管理",
+    "account": {
+      "title": "アカウント設定",
+      "displayName": "表示名",
+      "displayNamePlaceholder": "お名前を入力",
+      "email": "メールアドレス",
+      "emailPlaceholder": "メールアドレスを入力",
+      "googleAccount": "Googleアカウント",
+      "connected": "接続済み",
+      "notConnected": "未接続",
+      "connect": "Googleに接続",
+      "disconnect": "接続を解除"
+    },
+    "data": {
+      "title": "データ管理",
+      "exportFormat": "エクスポート形式",
+      "jsonFormat": "JSON（完全バックアップ）",
+      "csvFormat": "CSV（スプレッドシート）",
+      "exportData": "データをエクスポート",
+      "importData": "データをインポート",
+      "clearAllData": "すべてのデータをクリア",
+      "clearConfirm": "すべてのデータをクリアしてもよろしいですか？この操作は元に戻せません。",
+      "importSuccess": "データのインポートが成功しました！",
+      "importError": "データのインポート中にエラーが発生しました。ファイル形式を確認してください。",
+      "invalidFormat": "無効なファイル形式"
+    },
+    "app": {
+      "title": "アプリ情報",
+      "version": "バージョン",
+      "totalTrips": "総旅行数",
+      "activeTrips": "アクティブな旅行",
+      "completedTrips": "完了した旅行"
+    },
+    "help": {
+      "title": "ヘルプが必要ですか？",
+      "userGuide": "ユーザーガイド",
+      "faq": "よくある質問",
+      "contactSupport": "サポートに連絡"
+    },
+    "language": {
+      "title": "言語",
+      "select": "言語を選択"
+    }
+  },
+  "location": {
+    "openInGoogleMaps": "Googleマップで開く",
+    "navigate": "ナビゲート",
+    "scheduled": "予定時間",
+    "duration": "滞在時間",
+    "minutes": "分"
+  },
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラー",
+    "success": "成功",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "add": "追加",
+    "search": "検索",
+    "filter": "フィルター",
+    "close": "閉じる",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "yes": "はい",
+    "no": "いいえ"
+  },
+  "date": {
+    "today": "今日",
+    "yesterday": "昨日",
+    "tomorrow": "明日"
+  }
+}

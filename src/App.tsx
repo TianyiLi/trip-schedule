@@ -1,12 +1,13 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { TripProvider } from './contexts/TripContext';
-import Layout from './components/Layout';
-import Home from './pages/Home';
-import TripPlanning from './pages/TripPlanning';
-import Navigation from './pages/Navigation';
-import ArchivedTrips from './pages/ArchivedTrips';
-import Settings from './pages/Settings';
+import { TripProvider } from './shared/contexts/TripContext';
+import Layout from './pages/layout/Layout';
+import HomePage from './features/home/pages/HomePage';
+import TripPlanningPage from './features/trip-planning/pages/TripPlanningPage';
+import NavigationPage from './features/navigation/pages/NavigationPage';
+import ArchivePage from './features/archive/pages/ArchivePage';
+import SettingsPage from './features/settings/pages/SettingsPage';
+import './shared/i18n';
 
 function App() {
   return (
@@ -14,11 +15,11 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route index element={<Home />} />
-            <Route path="planning" element={<TripPlanning />} />
-            <Route path="navigation" element={<Navigation />} />
-            <Route path="archived" element={<ArchivedTrips />} />
-            <Route path="settings" element={<Settings />} />
+            <Route index element={<HomePage />} />
+            <Route path="planning" element={<TripPlanningPage />} />
+            <Route path="navigation" element={<NavigationPage />} />
+            <Route path="archived" element={<ArchivePage />} />
+            <Route path="settings" element={<SettingsPage />} />
           </Route>
         </Routes>
       </Router>
