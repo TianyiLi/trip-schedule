@@ -12,7 +12,7 @@ import './shared/i18n';
 function App() {
   return (
     <TripProvider>
-      <Router>
+      <Router basename="/trip-schedule">
         <Routes>
           <Route path="/" element={<Layout />}>
             <Route index element={<HomePage />} />
