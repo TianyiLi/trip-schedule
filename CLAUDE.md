@@ -47,11 +47,18 @@ Each feature follows a strict modular pattern under `src/features/`:
 
 ### State Management
 
-- **Global State**: `TripContext` provides trip CRUD operations and persists to localStorage
+- **Global State**: 
+  - Legacy: `TripContext` provides trip CRUD operations and persists to localStorage
+  - New (Migration in Progress): Using Jotai atoms + React Query for better performance and DX
+    - `tripAtoms.ts`: Core atoms for trip state with localStorage persistence
+    - `useTrips.ts`: Hook for trip CRUD operations using Jotai
+    - `useCloudSync.ts`: React Query hooks for cloud synchronization
 - **Authentication State**: `GoogleAuthContext` manages OAuth login/logout and user session
 - **Cloud Sync**: Automatic sync between local storage and Google Drive
 - **Local State**: Components use `useState`/`useReducer` only
-- **No external state libraries**: Uses React Context + localStorage + Google Drive persistence
+- **State Libraries**: 
+  - **Jotai**: Atomic state management with built-in localStorage persistence
+  - **React Query**: Server state, caching, and async operations
 
 ### Internationalization
 
