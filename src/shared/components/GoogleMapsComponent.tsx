@@ -48,7 +48,7 @@ const GoogleMapsComponent: React.FC<GoogleMapsComponentProps> = ({
         };
 
         document.head.appendChild(script);
-      } catch (error) {
+      } catch {
         setLoadError('Error loading Google Maps API');
       }
     };

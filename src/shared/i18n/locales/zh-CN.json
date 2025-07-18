@@ -154,7 +154,8 @@
       "emptyMessage": "完成一些行程后会显示在这里"
     },
     "locationsVisited": "个地点已参观",
-    "deleteConfirm": "您确定要永久删除此行程吗？"
+    "deleteConfirm": "您确定要永久删除此行程吗？",
+    "unarchive": "解除归档行程"
   },
   "settings": {
     "title": "设置",
@@ -171,6 +172,22 @@
       "connect": "连接 Google",
       "disconnect": "断开连接"
     },
+    "messages": {
+      "loginRequired": "请先登录 Google 账户",
+      "loginFailed": "Google 登录失败。请检查您的配置。",
+      "backupSuccess": "数据已成功备份到 Google Drive",
+      "backupFailed": "备份失败",
+      "restoreSuccess": "数据已成功从 Google Drive 还原",
+      "restoreFailed": "还原失败",
+      "restoreSuccessCount": "成功还原了 {{count}} 个旅程",
+      "restoreSkipped": "跳过了 {{count}} 个无效的旅程",
+      "restoreConfirmTitle": "还原数据",
+      "restoreConfirmMessage": "此操作将会覆盖您当前的所有旅程数据。您确定要从 \"{{fileName}}\" 还原数据吗？",
+      "restoreConfirmWarning": "此操作无法撤销。",
+      "syncSuccess": "数据同步成功",
+      "syncFailed": "同步失败",
+      "checkConnection": "请检查网络连接并重试"
+    },
     "data": {
       "title": "数据管理",
       "exportFormat": "导出格式",
@@ -180,6 +197,7 @@
       "importData": "导入数据",
       "clearAllData": "清除所有数据",
       "clearConfirm": "您确定要清除所有数据吗？此操作无法撤销。",
+      "clearSuccess": "所有数据已成功清除",
       "importSuccess": "数据导入成功！",
       "importError": "导入数据时发生错误。请检查文件格式。",
       "invalidFormat": "无效的文件格式"
@@ -200,6 +218,18 @@
     "language": {
       "title": "语言",
       "select": "选择语言"
+    },
+    "sync": {
+      "title": "云端同步",
+      "neverSynced": "从未同步",
+      "backup": "备份到云端",
+      "restore": "从云端还原",
+      "selectBackupFile": "选择备份文件",
+      "selectRestoreFile": "选择要还原的文件",
+      "createNewFile": "创建新文件",
+      "enterFileName": "输入文件名称...",
+      "noFilesFound": "找不到文件",
+      "fileLoadError": "加载文件时发生错误"
     }
   },
   "location": {
@@ -209,6 +239,15 @@
     "scheduled": "预定时间",
     "duration": "停留时间",
     "minutes": "分钟"
+  },
+  "auth": {
+    "signIn": "使用 Google 登入",
+    "signOut": "登出",
+    "loading": "加载中...",
+    "syncing": "同步中...",
+    "synced": "已同步",
+    "sync": "同步",
+    "syncError": "同步失败"
   },
   "common": {
     "loading": "加载中...",

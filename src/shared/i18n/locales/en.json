@@ -154,7 +154,8 @@
       "emptyMessage": "Complete some trips to see them here"
     },
     "locationsVisited": "locations visited",
-    "deleteConfirm": "Are you sure you want to permanently delete this trip?"
+    "deleteConfirm": "Are you sure you want to permanently delete this trip?",
+    "unarchive": "Unarchive Trip"
   },
   "settings": {
     "title": "Settings",
@@ -171,6 +172,22 @@
       "connect": "Connect Google",
       "disconnect": "Disconnect"
     },
+    "messages": {
+      "loginRequired": "Please login to Google first",
+      "loginFailed": "Google login failed. Please check your configuration.",
+      "backupSuccess": "Data successfully backed up to Google Drive",
+      "backupFailed": "Backup failed",
+      "restoreSuccess": "Data successfully restored from Google Drive",
+      "restoreFailed": "Restore failed",
+      "restoreSuccessCount": "Successfully restored {{count}} trips",
+      "restoreSkipped": "Skipped {{count}} invalid trips",
+      "restoreConfirmTitle": "Restore Data",
+      "restoreConfirmMessage": "This will overwrite all your current trip data. Are you sure you want to restore from \"{{fileName}}\"?",
+      "restoreConfirmWarning": "This action cannot be undone.",
+      "syncSuccess": "Data synchronized successfully",
+      "syncFailed": "Sync failed",
+      "checkConnection": "Please check your connection and try again"
+    },
     "data": {
       "title": "Data Management",
       "exportFormat": "Export Format",
@@ -180,6 +197,7 @@
       "importData": "Import Data",
       "clearAllData": "Clear All Data",
       "clearConfirm": "Are you sure you want to clear all data? This action cannot be undone.",
+      "clearSuccess": "All data has been cleared successfully",
       "importSuccess": "Data imported successfully!",
       "importError": "Error importing data. Please check the file format.",
       "invalidFormat": "Invalid file format"
@@ -200,6 +218,18 @@
     "language": {
       "title": "Language",
       "select": "Select Language"
+    },
+    "sync": {
+      "title": "Cloud Sync",
+      "neverSynced": "Never synced",
+      "backup": "Backup to Cloud",
+      "restore": "Restore from Cloud",
+      "selectBackupFile": "Select Backup File",
+      "selectRestoreFile": "Select File to Restore",
+      "createNewFile": "Create New File",
+      "enterFileName": "Enter file name...",
+      "noFilesFound": "No files found",
+      "fileLoadError": "Error loading files"
     }
   },
   "location": {
@@ -209,6 +239,15 @@
     "scheduled": "Scheduled",
     "duration": "Duration",
     "minutes": "minutes"
+  },
+  "auth": {
+    "signIn": "Sign in with Google",
+    "signOut": "Sign out",
+    "loading": "Loading...",
+    "syncing": "Syncing...",
+    "synced": "Synced",
+    "sync": "Sync",
+    "syncError": "Sync failed"
   },
   "common": {
     "loading": "Loading...",

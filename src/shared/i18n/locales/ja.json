@@ -154,7 +154,8 @@
       "emptyMessage": "旅行を完了するとここに表示されます"
     },
     "locationsVisited": "ロケーション訪問済み",
-    "deleteConfirm": "この旅行を永久に削除してもよろしいですか？"
+    "deleteConfirm": "この旅行を永久に削除してもよろしいですか？",
+    "unarchive": "アーカイブ解除"
   },
   "settings": {
     "title": "設定",
@@ -171,6 +172,22 @@
       "connect": "Googleに接続",
       "disconnect": "接続を解除"
     },
+    "messages": {
+      "loginRequired": "まずGoogleにログインしてください",
+      "loginFailed": "Googleログインに失敗しました。設定を確認してください。",
+      "backupSuccess": "Googleドライブにデータのバックアップが成功しました",
+      "backupFailed": "バックアップに失敗しました",
+      "restoreSuccess": "Googleドライブからデータの復元が成功しました",
+      "restoreFailed": "復元に失敗しました",
+      "restoreSuccessCount": "{{count}}個の旅行を正常に復元しました",
+      "restoreSkipped": "{{count}}個の無効な旅行をスキップしました",
+      "restoreConfirmTitle": "データを復元",
+      "restoreConfirmMessage": "これにより、現在のすべての旅行データが上書きされます。\"{{fileName}}\"から復元してもよろしいですか？",
+      "restoreConfirmWarning": "この操作は元に戻せません。",
+      "syncSuccess": "データの同期が成功しました",
+      "syncFailed": "同期に失敗しました",
+      "checkConnection": "接続を確認して再試行してください"
+    },
     "data": {
       "title": "データ管理",
       "exportFormat": "エクスポート形式",
@@ -180,6 +197,7 @@
       "importData": "データをインポート",
       "clearAllData": "すべてのデータをクリア",
       "clearConfirm": "すべてのデータをクリアしてもよろしいですか？この操作は元に戻せません。",
+      "clearSuccess": "すべてのデータが正常にクリアされました",
       "importSuccess": "データのインポートが成功しました！",
       "importError": "データのインポート中にエラーが発生しました。ファイル形式を確認してください。",
       "invalidFormat": "無効なファイル形式"
@@ -200,6 +218,18 @@
     "language": {
       "title": "言語",
       "select": "言語を選択"
+    },
+    "sync": {
+      "title": "クラウド同期",
+      "neverSynced": "未同期",
+      "backup": "クラウドにバックアップ",
+      "restore": "クラウドから復元",
+      "selectBackupFile": "バックアップファイルを選択",
+      "selectRestoreFile": "復元するファイルを選択",
+      "createNewFile": "新しいファイルを作成",
+      "enterFileName": "ファイル名を入力...",
+      "noFilesFound": "ファイルが見つかりません",
+      "fileLoadError": "ファイルの読み込みエラー"
     }
   },
   "location": {
@@ -209,6 +239,15 @@
     "scheduled": "予定時間",
     "duration": "滞在時間",
     "minutes": "分"
+  },
+  "auth": {
+    "signIn": "Googleでサインイン",
+    "signOut": "サインアウト",
+    "loading": "読み込み中...",
+    "syncing": "同期中...",
+    "synced": "同期済み",
+    "sync": "同期",
+    "syncError": "同期失敗"
   },
   "common": {
     "loading": "読み込み中...",

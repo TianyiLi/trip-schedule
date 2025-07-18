@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTrip } from '../../../shared/contexts/TripContext';
 import { Location, Trip } from '../../../shared/types';
@@ -8,33 +8,71 @@ import TripPlanningView from '../components/TripPlanningView';
 const TripPlanningContainer: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { state, reorderLocations, updateTrip, removeLocation } = useTrip();
+  const { state, reorderLocations, updateTrip } = useTrip();
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
   const [showAddLocation, setShowAddLocation] = useState(false);
-  const [viewMode, setViewMode] = useState<'list' | 'map'>('list');
 
   // Get trip ID from URL params and sync with context state
   useEffect(() => {
     const tripId = searchParams.get('tripId');
     if (tripId) {
-      const trip = state.trips.find(t => t.id === tripId);
+      const trip = state.trips.find(t => t.id === tripId && !t.isCompleted);
       if (trip) {
         setSelectedTrip(trip);
+        // Store last selected trip in localStorage
+        localStorage.setItem('lastSelectedTripId', tripId);
+      } else {
+        // If trip is completed or not found, redirect to home
+        navigate('/');
+      }
+    } else {
+      // No tripId in URL, try to auto-select a trip
+      const activeTrips = state.trips.filter(t => !t.isCompleted);
+      if (activeTrips.length > 0) {
+        // Try to get last selected trip from localStorage
+        const lastSelectedTripId = localStorage.getItem('lastSelectedTripId');
+        let tripToSelect = null;
+        
+        if (lastSelectedTripId) {
+          tripToSelect = activeTrips.find(t => t.id === lastSelectedTripId);
+        }
+        
+        // If no last selected trip or it's not found, select the most recently updated trip
+        if (!tripToSelect) {
+          tripToSelect = activeTrips.sort((a, b) => 
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime()
+          )[0];
+        }
+        
+        if (tripToSelect) {
+          setSelectedTrip(tripToSelect);
+          // Update URL with selected trip ID
+          navigate(`/planning?tripId=${tripToSelect.id}`, { replace: true });
+          localStorage.setItem('lastSelectedTripId', tripToSelect.id);
+        }
       }
     }
-  }, [state.trips, searchParams]);
+  }, [state.trips, searchParams, navigate]);
 
   // Keep selected trip in sync with context state
   useEffect(() => {
     if (selectedTrip) {
       const updatedTrip = state.trips.find(t => t.id === selectedTrip.id);
-      if (updatedTrip && updatedTrip !== selectedTrip) {
-        setSelectedTrip(updatedTrip);
+      if (updatedTrip) {
+        if (updatedTrip.isCompleted) {
+          // If trip was completed, redirect to home
+          navigate('/');
+        } else if (updatedTrip !== selectedTrip) {
+          setSelectedTrip(updatedTrip);
+        }
+      } else {
+        // If trip was deleted, redirect to home
+        navigate('/');
       }
     }
-  }, [state.trips, selectedTrip]);
+  }, [state.trips, selectedTrip, navigate]);
 
-  const handleDragEnd = (result: DropResult) => {
+  const handleDragEnd = useCallback((result: DropResult) => {
     if (!result.destination || !selectedTrip) return;
     
     // If dropped in the same position, do nothing
@@ -46,9 +84,9 @@ const TripPlanningContainer: React.FC = () => {
 
     // Update the trip order in context - state will be synced via useEffect
     reorderLocations(selectedTrip.id, items);
-  };
+  }, [selectedTrip, reorderLocations]);
 
-  const handleAddLocation = (location: Location) => {
+  const handleAddLocation = useCallback((location: Location) => {
     if (!selectedTrip) return;
     
     const updatedTrip = {
@@ -60,19 +98,19 @@ const TripPlanningContainer: React.FC = () => {
     updateTrip(updatedTrip);
     setSelectedTrip(updatedTrip);
     setShowAddLocation(false);
-  };
+  }, [selectedTrip, updateTrip]);
 
-  const handleSaveTrip = () => {
+  const handleSaveTrip = useCallback(() => {
     if (selectedTrip) {
       updateTrip({ ...selectedTrip, updatedAt: new Date() });
     }
-  };
+  }, [selectedTrip, updateTrip]);
 
-  const handleBackToHome = () => {
+  const handleBackToHome = useCallback(() => {
     navigate('/');
-  };
+  }, [navigate]);
 
-  const handleRemoveLocation = (locationId: string) => {
+  const handleRemoveLocation = useCallback((locationId: string) => {
     if (!selectedTrip) return;
     
     const updatedTrip = {
@@ -83,14 +121,12 @@ const TripPlanningContainer: React.FC = () => {
     
     updateTrip(updatedTrip);
     setSelectedTrip(updatedTrip);
-  };
+  }, [selectedTrip, updateTrip]);
 
   return (
     <TripPlanningView
       selectedTrip={selectedTrip}
-      viewMode={viewMode}
       showAddLocation={showAddLocation}
-      onViewModeChange={setViewMode}
       onShowAddLocation={setShowAddLocation}
       onDragEnd={handleDragEnd}
       onAddLocation={handleAddLocation}

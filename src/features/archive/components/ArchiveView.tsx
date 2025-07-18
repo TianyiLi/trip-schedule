@@ -1,6 +1,7 @@
 import React from 'react';
-import { Archive, Search, Calendar, MapPin, Trash2 } from 'lucide-react';
+import { Archive, Search, Calendar, MapPin, Trash2, ArchiveRestore } from 'lucide-react';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 import { Trip } from '../../../shared/types';
 
 interface ArchiveViewProps {
@@ -14,6 +15,7 @@ interface ArchiveViewProps {
   onSearchChange: (value: string) => void;
   onDeleteTrip: (tripId: string) => void;
   onExportTrip: (trip: Trip) => void;
+  onUnarchiveTrip: (tripId: string) => void;
 }
 
 const ArchiveView: React.FC<ArchiveViewProps> = ({
@@ -23,7 +25,10 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
   onSearchChange,
   onDeleteTrip,
   onExportTrip,
+  onUnarchiveTrip,
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="max-w-7xl mx-auto">
       {/* Header */}
@@ -129,6 +134,14 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
                 </div>
 
                 <div className="space-y-2">
+                  <button
+                    onClick={() => onUnarchiveTrip(trip.id)}
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-500 text-white py-2 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 font-medium flex items-center justify-center space-x-2"
+                  >
+                    <ArchiveRestore size={16} />
+                    <span>{t('archived.unarchive')}</span>
+                  </button>
+                  
                   <button
                     onClick={() => onExportTrip(trip)}
                     className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-2 rounded-lg hover:from-green-600 hover:to-blue-600 transition-all duration-200 font-medium"

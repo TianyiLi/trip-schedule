@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Toaster } from 'sonner';
 import { TripProvider } from './shared/contexts/TripContext';
+import { GoogleAuthProvider } from './shared/contexts/GoogleAuthContext';
 import Layout from './pages/layout/Layout';
 import HomePage from './features/home/pages/HomePage';
 import TripPlanningPage from './features/trip-planning/pages/TripPlanningPage';
@@ -11,19 +13,22 @@ import './shared/i18n';
 
 function App() {
   return (
-    <TripProvider>
-      <Router basename="/trip-schedule">
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            <Route index element={<HomePage />} />
-            <Route path="planning" element={<TripPlanningPage />} />
-            <Route path="navigation" element={<NavigationPage />} />
-            <Route path="archived" element={<ArchivePage />} />
-            <Route path="settings" element={<SettingsPage />} />
-          </Route>
-        </Routes>
-      </Router>
-    </TripProvider>
+    <GoogleAuthProvider>
+      <TripProvider>
+        <Router basename="/trip-schedule">
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<HomePage />} />
+              <Route path="planning" element={<TripPlanningPage />} />
+              <Route path="navigation" element={<NavigationPage />} />
+              <Route path="archived" element={<ArchivePage />} />
+              <Route path="settings" element={<SettingsPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </TripProvider>
+      <Toaster position="top-right" />
+    </GoogleAuthProvider>
   );
 }
 

@@ -91,12 +91,12 @@ const AddLocationModal: React.FC<AddLocationModalProps> = ({ onClose, onAdd }) =
       
       const data = await response.json();
       
-      const results = data.map((place: any) => ({
-        name: place.display_name.split(',')[0],
-        address: place.display_name,
-        place_id: place.place_id.toString(),
-        lat: parseFloat(place.lat),
-        lng: parseFloat(place.lon)
+      const results = data.map((place: Record<string, unknown>) => ({
+        name: (place.display_name as string).split(',')[0],
+        address: place.display_name as string,
+        place_id: (place.place_id as number).toString(),
+        lat: parseFloat(place.lat as string),
+        lng: parseFloat(place.lon as string)
       }));
       
       setSearchResults(results);

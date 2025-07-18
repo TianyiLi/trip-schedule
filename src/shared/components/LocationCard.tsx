@@ -13,7 +13,7 @@ interface LocationCardProps {
   isDragging?: boolean;
 }
 
-const LocationCard: React.FC<LocationCardProps> = ({
+const LocationCard: React.FC<LocationCardProps> = React.memo(({
   location,
   index,
   onDelete,
@@ -115,6 +115,6 @@ const LocationCard: React.FC<LocationCardProps> = ({
       )}
     </Draggable>
   );
-};
+});
 
 export default LocationCard;

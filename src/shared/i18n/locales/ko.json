@@ -154,7 +154,8 @@
       "emptyMessage": "여행을 완료하면 여기에 표시됩니다"
     },
     "locationsVisited": "개 장소 방문함",
-    "deleteConfirm": "이 여행을 영구적으로 삭제하시겠습니까?"
+    "deleteConfirm": "이 여행을 영구적으로 삭제하시겠습니까?",
+    "unarchive": "아카이브 해제"
   },
   "settings": {
     "title": "설정",
@@ -171,6 +172,22 @@
       "connect": "Google 연결",
       "disconnect": "연결 해제"
     },
+    "messages": {
+      "loginRequired": "먼저 Google에 로그인해 주세요",
+      "loginFailed": "Google 로그인에 실패했습니다. 설정을 확인해 주세요.",
+      "backupSuccess": "Google 드라이브에 데이터 백업이 성공했습니다",
+      "backupFailed": "백업에 실패했습니다",
+      "restoreSuccess": "Google 드라이브에서 데이터 복원이 성공했습니다",
+      "restoreFailed": "복원에 실패했습니다",
+      "restoreSuccessCount": "{{count}}개의 여행을 성공적으로 복원했습니다",
+      "restoreSkipped": "{{count}}개의 잘못된 여행을 건너뛰었습니다",
+      "restoreConfirmTitle": "데이터 복원",
+      "restoreConfirmMessage": "이 작업으로 현재의 모든 여행 데이터가 덮어쓰여집니다. \"{{fileName}}\"에서 복원하시겠습니까?",
+      "restoreConfirmWarning": "이 작업은 되돌릴 수 없습니다.",
+      "syncSuccess": "데이터 동기화가 성공했습니다",
+      "syncFailed": "동기화에 실패했습니다",
+      "checkConnection": "연결을 확인하고 다시 시도해 주세요"
+    },
     "data": {
       "title": "데이터 관리",
       "exportFormat": "내보내기 형식",
@@ -180,6 +197,7 @@
       "importData": "데이터 가져오기",
       "clearAllData": "모든 데이터 지우기",
       "clearConfirm": "모든 데이터를 지우시겠습니까? 이 작업은 되돌릴 수 없습니다.",
+      "clearSuccess": "모든 데이터가 성공적으로 지워졌습니다",
       "importSuccess": "데이터를 성공적으로 가져왔습니다!",
       "importError": "데이터 가져오기 중 오류가 발생했습니다. 파일 형식을 확인해 주세요.",
       "invalidFormat": "잘못된 파일 형식"
@@ -200,6 +218,18 @@
     "language": {
       "title": "언어",
       "select": "언어 선택"
+    },
+    "sync": {
+      "title": "클라우드 동기화",
+      "neverSynced": "동기화 안됨",
+      "backup": "클라우드에 백업",
+      "restore": "클라우드에서 복원",
+      "selectBackupFile": "백업 파일 선택",
+      "selectRestoreFile": "복원할 파일 선택",
+      "createNewFile": "새 파일 생성",
+      "enterFileName": "파일 이름 입력...",
+      "noFilesFound": "파일을 찾을 수 없습니다",
+      "fileLoadError": "파일 로드 오류"
     }
   },
   "location": {
@@ -209,6 +239,15 @@
     "scheduled": "예정 시간",
     "duration": "체류 시간",
     "minutes": "분"
+  },
+  "auth": {
+    "signIn": "Google로 로그인",
+    "signOut": "로그아웃",
+    "loading": "로딩 중...",
+    "syncing": "동기화 중...",
+    "synced": "동기화 완료",
+    "sync": "동기화",
+    "syncError": "동기화 실패"
   },
   "common": {
     "loading": "로딩 중...",

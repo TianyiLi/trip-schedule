@@ -3,15 +3,12 @@ import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
 import { Plus, MapPin, Save, ArrowLeft } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LocationCard from '../../../shared/components/LocationCard';
-import GoogleMapsComponent from '../../../shared/components/GoogleMapsComponent';
 import AddLocationModal from './AddLocationModal';
 import { Location, Trip } from '../../../shared/types';
 
 interface TripPlanningViewProps {
   selectedTrip: Trip | null;
-  viewMode: 'list' | 'map';
   showAddLocation: boolean;
-  onViewModeChange: (mode: 'list' | 'map') => void;
   onShowAddLocation: (show: boolean) => void;
   onDragEnd: (result: DropResult) => void;
   onAddLocation: (location: Location) => void;
@@ -22,9 +19,7 @@ interface TripPlanningViewProps {
 
 const TripPlanningView: React.FC<TripPlanningViewProps> = ({
   selectedTrip,
-  viewMode,
   showAddLocation,
-  onViewModeChange,
   onShowAddLocation,
   onDragEnd,
   onAddLocation,

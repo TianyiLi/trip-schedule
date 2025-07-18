@@ -41,7 +41,14 @@ const HomeContainer: React.FC = () => {
   }, [state.trips]);
 
   const handleTripSelect = (trip: Trip) => {
-    navigate(`/planning?tripId=${trip.id}`);
+    if (trip.isCompleted) {
+      // For completed trips, navigate to archive view
+      navigate('/archived');
+    } else {
+      // For active trips, navigate to planning and store as last selected
+      localStorage.setItem('lastSelectedTripId', trip.id);
+      navigate(`/planning?tripId=${trip.id}`);
+    }
   };
 
   return (

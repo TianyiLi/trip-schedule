@@ -5,7 +5,7 @@ import { Trip } from '../../../shared/types';
 import ArchiveView from '../components/ArchiveView';
 
 const ArchiveContainer: React.FC = () => {
-  const { state, deleteTrip } = useTrip();
+  const { state, deleteTrip, uncompleteTrip } = useTrip();
   const [searchTerm, setSearchTerm] = useState('');
 
   const completedTrips = useMemo(() => {
@@ -40,6 +40,10 @@ const ArchiveContainer: React.FC = () => {
     if (window.confirm('Are you sure you want to permanently delete this trip?')) {
       deleteTrip(tripId);
     }
+  };
+
+  const handleUnarchiveTrip = (tripId: string) => {
+    uncompleteTrip(tripId);
   };
 
   const exportToCSV = (trip: Trip) => {
@@ -78,6 +82,7 @@ const ArchiveContainer: React.FC = () => {
       onSearchChange={setSearchTerm}
       onDeleteTrip={handleDeleteTrip}
       onExportTrip={exportToCSV}
+      onUnarchiveTrip={handleUnarchiveTrip}
     />
   );
 };
