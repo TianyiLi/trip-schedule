@@ -4,7 +4,7 @@ A React + TypeScript travel planning application built with Vite, featuring mult
 
 ## 🚀 Live Demo
 
-[View Live Application](https://yourusername.github.io/trip-schedule/)
+[View Live Application](https://tianyili.github.io/trip-schedule/)
 
 ## Features
 
