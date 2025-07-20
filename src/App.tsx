@@ -4,7 +4,6 @@ import { Toaster } from 'sonner';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Provider as JotaiProvider } from 'jotai';
-import { DevTools as JotaiDevTools } from 'jotai-devtools';
 import { TripProvider } from './shared/contexts/TripContext';
 import { GoogleAuthProvider } from './shared/contexts/GoogleAuthContext';
 import Layout from './pages/layout/Layout';
@@ -46,10 +45,7 @@ function App() {
           <Toaster position="top-right" />
         </GoogleAuthProvider>
         {process.env.NODE_ENV === 'development' && (
-          <>
-            <ReactQueryDevtools initialIsOpen={false} />
-            <JotaiDevTools />
-          </>
+          <ReactQueryDevtools initialIsOpen={false} />
         )}
       </JotaiProvider>
     </QueryClientProvider>

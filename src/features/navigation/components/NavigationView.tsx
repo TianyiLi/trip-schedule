@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Navigation as NavigationIcon, MapPin, Clock, ArrowRight, CheckCircle } from 'lucide-react';
 import GoogleMapsComponent from '../../../shared/components/GoogleMapsComponent';
 import { Location, Trip } from '../../../shared/types';
@@ -32,17 +33,18 @@ const NavigationView: React.FC<NavigationViewProps> = ({
   onOpenGoogleMaps,
   onGoHome,
 }) => {
+  const { t } = useTranslation();
   if (!currentTrip) {
     return (
       <div className="max-w-4xl mx-auto text-center py-12">
         <NavigationIcon size={64} className="mx-auto text-gray-400 mb-6" />
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">No Active Trip</h2>
-        <p className="text-gray-600 mb-6">You don't have any active trips to navigate. Create a new trip to get started.</p>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">{t('navigation.noActiveTrip.title')}</h2>
+        <p className="text-gray-600 mb-6">{t('navigation.noActiveTrip.message')}</p>
         <button
           onClick={onGoHome}
           className="bg-gradient-to-r from-blue-500 to-purple-500 text-white px-6 py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200"
         >
-          Go to Home
+          {t('navigation.noActiveTrip.button')}
         </button>
       </div>
     );
@@ -54,12 +56,12 @@ const NavigationView: React.FC<NavigationViewProps> = ({
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">Navigation</h1>
+            <h1 className="text-3xl font-bold text-gray-800 mb-2">{t('navigation.title')}</h1>
             <p className="text-gray-600">{currentTrip.title}</p>
           </div>
           
           <div className="text-right">
-            <div className="text-sm text-gray-500">Progress</div>
+            <div className="text-sm text-gray-500">{t('navigation.progress')}</div>
             <div className="text-2xl font-bold text-blue-600">
               {currentLocationIndex + 1} / {currentTrip.locations.length}
             </div>
@@ -82,21 +84,21 @@ const NavigationView: React.FC<NavigationViewProps> = ({
         <div className="space-y-6">
           <div className="bg-white rounded-xl shadow-lg p-6">
             <div className="flex items-center justify-between mb-6">
-              <h2 className="text-xl font-bold text-gray-800">Current Destination</h2>
+              <h2 className="text-xl font-bold text-gray-800">{t('navigation.currentDestination')}</h2>
               <div className="flex items-center space-x-2">
                 <button
                   onClick={onPrevious}
                   disabled={currentLocationIndex === 0}
                   className="px-4 py-2 bg-gray-100 text-gray-600 rounded-lg hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  Previous
+                  {t('navigation.buttons.previous')}
                 </button>
                 <button
                   onClick={onNext}
                   disabled={currentLocationIndex === currentTrip.locations.length - 1}
                   className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                 >
-                  Next
+                  {t('navigation.buttons.next')}
                 </button>
               </div>
             </div>
@@ -114,13 +116,13 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                     {currentLocation.visitTime && (
                       <div className="flex items-center text-gray-600 mb-2">
                         <Clock size={16} className="mr-2" />
-                        <span>Scheduled: {currentLocation.visitTime}</span>
+                        <span>{t('navigation.scheduled')}: {currentLocation.visitTime}</span>
                       </div>
                     )}
                     
                     {currentLocation.estimatedDuration && (
                       <div className="text-sm text-gray-500 mb-4">
-                        Estimated duration: {currentLocation.estimatedDuration} minutes
+                        {t('navigation.estimatedDuration')}: {currentLocation.estimatedDuration} {t('navigation.minutes')}
                       </div>
                     )}
                     
@@ -135,7 +137,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                     {completedLocations.has(currentLocation.id) ? (
                       <div className="flex items-center text-green-600">
                         <CheckCircle size={24} className="mr-2" />
-                        <span className="font-medium">Completed</span>
+                        <span className="font-medium">{t('navigation.completed')}</span>
                       </div>
                     ) : (
                       <button
@@ -143,7 +145,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                         className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center space-x-2"
                       >
                         <CheckCircle size={16} />
-                        <span>Mark Complete</span>
+                        <span>{t('navigation.buttons.markComplete')}</span>
                       </button>
                     )}
                   </div>
@@ -155,7 +157,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                     className="flex-1 bg-gradient-to-r from-blue-500 to-purple-500 text-white py-3 rounded-lg hover:from-blue-600 hover:to-purple-600 transition-all duration-200 flex items-center justify-center space-x-2"
                   >
                     <NavigationIcon size={20} />
-                    <span>Navigate</span>
+                    <span>{t('navigation.buttons.navigate')}</span>
                   </button>
                   
                   <button
@@ -163,7 +165,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                     className="flex-1 bg-gray-100 text-gray-700 py-3 rounded-lg hover:bg-gray-200 transition-colors flex items-center justify-center space-x-2"
                   >
                     <MapPin size={20} />
-                    <span>View on Map</span>
+                    <span>{t('navigation.buttons.viewOnMap')}</span>
                   </button>
                 </div>
               </div>
@@ -173,7 +175,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
           {/* Next Location */}
           {nextLocation && (
             <div className="bg-white rounded-xl shadow-lg p-6">
-              <h2 className="text-xl font-bold text-gray-800 mb-4">Next Destination</h2>
+              <h2 className="text-xl font-bold text-gray-800 mb-4">{t('navigation.nextDestination')}</h2>
               <div className="border-l-4 border-gray-300 pl-6">
                 <div className="flex items-center justify-between">
                   <div className="flex-1">
@@ -186,7 +188,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
                     {nextLocation.visitTime && (
                       <div className="flex items-center text-gray-600">
                         <Clock size={14} className="mr-2" />
-                        <span className="text-sm">Scheduled: {nextLocation.visitTime}</span>
+                        <span className="text-sm">{t('navigation.scheduled')}: {nextLocation.visitTime}</span>
                       </div>
                     )}
                   </div>
@@ -200,7 +202,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
 
         {/* Map */}
         <div className="bg-white rounded-xl shadow-lg p-6">
-          <h2 className="text-xl font-bold text-gray-800 mb-6">Route Overview</h2>
+          <h2 className="text-xl font-bold text-gray-800 mb-6">{t('navigation.routeOverview')}</h2>
           <GoogleMapsComponent
             locations={currentTrip.locations}
             currentLocation={currentLocation}
@@ -211,7 +213,7 @@ const NavigationView: React.FC<NavigationViewProps> = ({
 
       {/* Daily Overview */}
       <div className="bg-white rounded-xl shadow-lg p-6 mt-8">
-        <h2 className="text-xl font-bold text-gray-800 mb-6">Today's Itinerary</h2>
+        <h2 className="text-xl font-bold text-gray-800 mb-6">{t('navigation.todayItinerary')}</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {currentTrip.locations.map((location, index) => (
             <div

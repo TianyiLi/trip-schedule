@@ -10,6 +10,7 @@ interface TripCardProps {
   onEdit?: (trip: Trip) => void;
   onDelete?: (tripId: string) => void;
   onComplete?: (tripId: string) => void;
+  onUncomplete?: (tripId: string) => void;
 }
 
 const TripCard: React.FC<TripCardProps> = ({
@@ -18,6 +19,7 @@ const TripCard: React.FC<TripCardProps> = ({
   onEdit,
   onDelete,
   onComplete,
+  onUncomplete,
 }) => {
   const { t } = useTranslation();
   const [showMenu, setShowMenu] = React.useState(false);
@@ -61,6 +63,14 @@ const TripCard: React.FC<TripCardProps> = ({
                     className="w-full px-4 py-2 text-left hover:bg-gray-100 text-green-600"
                   >
                     {t('trip.markComplete')}
+                  </button>
+                )}
+                {trip.isCompleted && (
+                  <button
+                    onClick={() => { onUncomplete?.(trip.id); setShowMenu(false); }}
+                    className="w-full px-4 py-2 text-left hover:bg-gray-100 text-blue-600"
+                  >
+                    {t('trip.restore')}
                   </button>
                 )}
                 <button

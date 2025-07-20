@@ -43,7 +43,11 @@
     "viewTrip": "旅行を表示",
     "completed": "完了",
     "days": "日",
-    "locations": "ロケーション"
+    "locations": "ロケーション",
+    "restore": "旅行を復元",
+    "created": "作成日時",
+    "itinerary": "旅程",
+    "noLocations": "まだ場所が追加されていません"
   },
   "createTrip": {
     "title": "新しい旅行を作成",
@@ -213,7 +217,8 @@
       "title": "ヘルプが必要ですか？",
       "userGuide": "ユーザーガイド",
       "faq": "よくある質問",
-      "contactSupport": "サポートに連絡"
+      "contactSupport": "サポートに連絡",
+      "privacyPolicy": "プライバシーポリシー"
     },
     "language": {
       "title": "言語",

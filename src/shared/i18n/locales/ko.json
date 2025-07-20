@@ -43,7 +43,11 @@
     "viewTrip": "여행 보기",
     "completed": "완료됨",
     "days": "일",
-    "locations": "개 장소"
+    "locations": "개 장소",
+    "restore": "여행 복원",
+    "created": "생성일",
+    "itinerary": "여행 일정",
+    "noLocations": "아직 장소가 추가되지 않았습니다"
   },
   "createTrip": {
     "title": "새 여행 만들기",
@@ -213,7 +217,8 @@
       "title": "도움이 필요하신가요?",
       "userGuide": "사용자 가이드",
       "faq": "자주 묻는 질문",
-      "contactSupport": "지원팀 문의"
+      "contactSupport": "지원팀 문의",
+      "privacyPolicy": "개인정보처리방침"
     },
     "language": {
       "title": "언어",

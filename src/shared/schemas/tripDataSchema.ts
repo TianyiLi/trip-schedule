@@ -1,4 +1,4 @@
-import Ajv from 'ajv';
+import Ajv, { ValidateFunction } from 'ajv';
 import addFormats from 'ajv-formats';
 
 export const tripDataSchema = {
@@ -63,7 +63,7 @@ export const tripDataSchema = {
 
 export class TripDataValidator {
   private ajv: Ajv;
-  private validate: (data: unknown) => boolean;
+  private validate: ValidateFunction;
 
   constructor() {
     this.ajv = new Ajv({ allErrors: true });

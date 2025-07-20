@@ -43,7 +43,13 @@
     "viewTrip": "View Trip",
     "completed": "Completed",
     "days": "days",
-    "locations": "locations"
+    "locations": "locations",
+    "restore": "Restore Trip",
+    "created": "Created",
+    "itinerary": "Itinerary",
+    "noLocations": "No locations added yet",
+    "description": "Description",
+    "noDescription": "No description provided"
   },
   "createTrip": {
     "title": "Create New Trip",
@@ -213,7 +219,8 @@
       "title": "Need Help?",
       "userGuide": "User Guide",
       "faq": "FAQ",
-      "contactSupport": "Contact Support"
+      "contactSupport": "Contact Support",
+      "privacyPolicy": "Privacy Policy"
     },
     "language": {
       "title": "Language",

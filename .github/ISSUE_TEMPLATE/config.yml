@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 Privacy Policy / 隱私權政策
+    url: https://tianyili.github.io/trip-schedule/privacy.html
+    about: 查看應用程式隱私權政策 / View the application's privacy policy
+  
+  - name: 🌐 Live Demo / 線上展示
+    url: https://tianyili.github.io/trip-schedule/
+    about: 體驗旅行規劃師應用程式 / Try the Travel Planner application
+  
+  - name: 📚 Documentation / 說明文件  
+    url: https://github.com/tianyili/trip-schedule/blob/main/README.md
+    about: 查看完整的專案說明文件 / View the complete project documentation

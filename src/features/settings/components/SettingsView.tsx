@@ -274,15 +274,22 @@ const SettingsView: React.FC<SettingsViewProps> = ({
           <div className="bg-white rounded-xl shadow-lg p-6">
             <h2 className="text-xl font-bold text-gray-800 mb-4">{t('settings.help.title')}</h2>
             <div className="space-y-3">
-              <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                <span className="font-medium">{t('settings.help.userGuide')}</span>
-              </button>
-              <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
-                <span className="font-medium">{t('settings.help.faq')}</span>
-              </button>
-              <button className="w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors">
+              <a 
+                href="https://github.com/tianyili/trip-schedule/issues" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-decoration-none"
+              >
                 <span className="font-medium">{t('settings.help.contactSupport')}</span>
-              </button>
+              </a>
+              <a 
+                href="/trip-schedule/privacy.html" 
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block w-full text-left p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors text-decoration-none"
+              >
+                <span className="font-medium">{t('settings.help.privacyPolicy')}</span>
+              </a>
             </div>
           </div>
         </div>

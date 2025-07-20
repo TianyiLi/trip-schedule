@@ -18,8 +18,10 @@ interface HomeViewProps {
   onSearchChange: (value: string) => void;
   onFilterChange: (value: 'all' | 'active' | 'completed') => void;
   onTripSelect: (trip: Trip) => void;
+  onTripEdit: (trip: Trip) => void;
   onTripDelete: (id: string) => void;
   onTripComplete: (id: string) => void;
+  onTripUncomplete: (id: string) => void;
   onShowCreateModal: (show: boolean) => void;
 }
 
@@ -32,8 +34,10 @@ const HomeView: React.FC<HomeViewProps> = ({
   onSearchChange,
   onFilterChange,
   onTripSelect,
+  onTripEdit,
   onTripDelete,
   onTripComplete,
+  onTripUncomplete,
   onShowCreateModal,
 }) => {
   const { t } = useTranslation();
@@ -148,8 +152,10 @@ const HomeView: React.FC<HomeViewProps> = ({
               key={trip.id}
               trip={trip}
               onSelect={onTripSelect}
+              onEdit={onTripEdit}
               onDelete={onTripDelete}
               onComplete={onTripComplete}
+              onUncomplete={onTripUncomplete}
             />
           ))}
         </div>

@@ -43,7 +43,11 @@
     "viewTrip": "查看行程",
     "completed": "已完成",
     "days": "天",
-    "locations": "個地點"
+    "locations": "個地點",
+    "restore": "恢復行程",
+    "created": "建立於",
+    "itinerary": "行程規劃",
+    "noLocations": "尚未新增地點"
   },
   "createTrip": {
     "title": "建立新行程",
@@ -213,7 +217,8 @@
       "title": "需要幫助？",
       "userGuide": "使用指南",
       "faq": "常見問題",
-      "contactSupport": "聯絡支援"
+      "contactSupport": "聯絡支援",
+      "privacyPolicy": "隱私權政策"
     },
     "language": {
       "title": "語言",

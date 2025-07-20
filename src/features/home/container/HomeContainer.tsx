@@ -3,13 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { useTrip } from '../../../shared/contexts/TripContext';
 import { Trip } from '../../../shared/types';
 import HomeView from '../components/HomeView';
+import TripPreviewContainer from './TripPreviewContainer';
 
 const HomeContainer: React.FC = () => {
   const navigate = useNavigate();
-  const { state, deleteTrip, completeTrip } = useTrip();
+  const { state, deleteTrip, completeTrip, uncompleteTrip } = useTrip();
   const [searchTerm, setSearchTerm] = useState('');
   const [filterType, setFilterType] = useState<'all' | 'active' | 'completed'>('all');
   const [showCreateModal, setShowCreateModal] = useState(false);
+  const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
+  const [showPreviewDrawer, setShowPreviewDrawer] = useState(false);
 
   const filteredTrips = useMemo(() => {
     return state.trips.filter(trip => {
@@ -41,30 +44,45 @@ const HomeContainer: React.FC = () => {
   }, [state.trips]);
 
   const handleTripSelect = (trip: Trip) => {
-    if (trip.isCompleted) {
-      // For completed trips, navigate to archive view
-      navigate('/archived');
-    } else {
-      // For active trips, navigate to planning and store as last selected
-      localStorage.setItem('lastSelectedTripId', trip.id);
-      navigate(`/planning?tripId=${trip.id}`);
-    }
+    setSelectedTrip(trip);
+    setShowPreviewDrawer(true);
+  };
+
+  const handleTripEdit = (trip: Trip) => {
+    // For editing, navigate directly to planning
+    localStorage.setItem('lastSelectedTripId', trip.id);
+    navigate(`/planning?tripId=${trip.id}`);
+  };
+
+  const handleClosePreview = () => {
+    setShowPreviewDrawer(false);
+    setSelectedTrip(null);
   };
 
   return (
-    <HomeView
-      trips={filteredTrips}
-      stats={stats}
-      searchTerm={searchTerm}
-      filterType={filterType}
-      showCreateModal={showCreateModal}
-      onSearchChange={setSearchTerm}
-      onFilterChange={setFilterType}
-      onTripSelect={handleTripSelect}
-      onTripDelete={deleteTrip}
-      onTripComplete={completeTrip}
-      onShowCreateModal={setShowCreateModal}
-    />
+    <>
+      <HomeView
+        trips={filteredTrips}
+        stats={stats}
+        searchTerm={searchTerm}
+        filterType={filterType}
+        showCreateModal={showCreateModal}
+        onSearchChange={setSearchTerm}
+        onFilterChange={setFilterType}
+        onTripSelect={handleTripSelect}
+        onTripEdit={handleTripEdit}
+        onTripDelete={deleteTrip}
+        onTripComplete={completeTrip}
+        onTripUncomplete={uncompleteTrip}
+        onShowCreateModal={setShowCreateModal}
+      />
+      
+      <TripPreviewContainer
+        trip={selectedTrip}
+        isOpen={showPreviewDrawer}
+        onClose={handleClosePreview}
+      />
+    </>
   );
 };
 
