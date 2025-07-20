@@ -16,7 +16,7 @@ const TripPreviewContainer: React.FC<TripPreviewContainerProps> = ({
   onClose,
 }) => {
   const navigate = useNavigate();
-  const { deleteTrip, completeTrip, uncompleteTrip, updateTrip } = useTrip();
+  const { deleteTrip, completeTrip, uncompleteTrip } = useTrip();
 
   const handleEdit = (trip: Trip) => {
     // Close drawer and navigate to planning page
@@ -60,10 +60,6 @@ const TripPreviewContainer: React.FC<TripPreviewContainerProps> = ({
     console.log('Open location:', locationId);
   };
 
-  const handleUpdateTrip = (tripId: string, updates: { title?: string; description?: string }) => {
-    updateTrip(tripId, updates);
-  };
-
   return (
     <TripPreviewDrawer
       trip={trip}
@@ -75,7 +71,6 @@ const TripPreviewContainer: React.FC<TripPreviewContainerProps> = ({
       onUncomplete={handleUncomplete}
       onNavigate={handleNavigate}
       onOpenLocation={handleOpenLocation}
-      onUpdateTrip={handleUpdateTrip}
     />
   );
 };

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { Plus, MapPin, Save, ArrowLeft } from 'lucide-react';
+import { Plus, MapPin, Save, ArrowLeft, Edit, Check, X } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import LocationCard from '../../../shared/components/LocationCard';
 import AddLocationModal from './AddLocationModal';
@@ -13,8 +13,10 @@ interface TripPlanningViewProps {
   onDragEnd: (result: DropResult) => void;
   onAddLocation: (location: Location) => void;
   onRemoveLocation: (locationId: string) => void;
-  onSaveTrip: () => void;
+  onSaveTrip: () => Promise<void>;
   onBackToHome: () => void;
+  onUpdateTrip: (updates: { title?: string; description?: string }) => void;
+  isSaving?: boolean;
 }
 
 const TripPlanningView: React.FC<TripPlanningViewProps> = ({
@@ -26,8 +28,50 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
   onRemoveLocation,
   onSaveTrip,
   onBackToHome,
+  onUpdateTrip,
+  isSaving = false,
 }) => {
   const { t } = useTranslation();
+  const [editingTitle, setEditingTitle] = useState(false);
+  const [editingDescription, setEditingDescription] = useState(false);
+  const [tempTitle, setTempTitle] = useState('');
+  const [tempDescription, setTempDescription] = useState('');
+
+  const handleStartEditTitle = () => {
+    if (!selectedTrip) return;
+    setTempTitle(selectedTrip.title);
+    setEditingTitle(true);
+  };
+
+  const handleStartEditDescription = () => {
+    if (!selectedTrip) return;
+    setTempDescription(selectedTrip.description);
+    setEditingDescription(true);
+  };
+
+  const handleSaveTitle = () => {
+    if (tempTitle.trim() && tempTitle !== selectedTrip?.title) {
+      onUpdateTrip({ title: tempTitle.trim() });
+    }
+    setEditingTitle(false);
+  };
+
+  const handleSaveDescription = () => {
+    if (tempDescription !== selectedTrip?.description) {
+      onUpdateTrip({ description: tempDescription });
+    }
+    setEditingDescription(false);
+  };
+
+  const handleCancelTitle = () => {
+    setTempTitle('');
+    setEditingTitle(false);
+  };
+
+  const handleCancelDescription = () => {
+    setTempDescription('');
+    setEditingDescription(false);
+  };
 
   if (!selectedTrip) {
     return (
@@ -50,7 +94,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
       {/* Header */}
       <div className="bg-white rounded-xl shadow-lg p-6 mb-8">
         <div className="flex items-center justify-between">
-          <div>
+          <div className="flex-1">
             <button
               onClick={onBackToHome}
               className="text-gray-500 hover:text-gray-700 mb-2"
@@ -58,8 +102,93 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
               <ArrowLeft size={20} className="inline mr-2" />
               {t('planning.backToHome')}
             </button>
-            <h1 className="text-3xl font-bold text-gray-800 mb-2">{selectedTrip.title}</h1>
-            <p className="text-gray-600">{selectedTrip.description}</p>
+            
+            {/* Editable Title */}
+            <div className="mb-2">
+              {editingTitle ? (
+                <div className="flex items-center gap-2">
+                  <input
+                    type="text"
+                    value={tempTitle}
+                    onChange={(e) => setTempTitle(e.target.value)}
+                    className="text-3xl font-bold text-gray-800 bg-transparent border-b-2 border-blue-500 outline-none flex-1"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') handleSaveTitle();
+                      if (e.key === 'Escape') handleCancelTitle();
+                    }}
+                    autoFocus
+                  />
+                  <button
+                    onClick={handleSaveTitle}
+                    className="p-1 text-green-600 hover:bg-green-50 rounded"
+                  >
+                    <Check size={20} />
+                  </button>
+                  <button
+                    onClick={handleCancelTitle}
+                    className="p-1 text-gray-500 hover:bg-gray-50 rounded"
+                  >
+                    <X size={20} />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 group">
+                  <h1 className="text-3xl font-bold text-gray-800">{selectedTrip.title}</h1>
+                  <button
+                    onClick={handleStartEditTitle}
+                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-all"
+                  >
+                    <Edit size={16} />
+                  </button>
+                </div>
+              )}
+            </div>
+            
+            {/* Editable Description */}
+            <div>
+              {editingDescription ? (
+                <div className="flex items-start gap-2">
+                  <textarea
+                    value={tempDescription}
+                    onChange={(e) => setTempDescription(e.target.value)}
+                    className="text-gray-600 bg-gray-50 border border-gray-300 rounded p-2 flex-1 resize-none"
+                    rows={2}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && e.ctrlKey) handleSaveDescription();
+                      if (e.key === 'Escape') handleCancelDescription();
+                    }}
+                    placeholder={t('trip.description')}
+                    autoFocus
+                  />
+                  <div className="flex flex-col gap-1">
+                    <button
+                      onClick={handleSaveDescription}
+                      className="p-1 text-green-600 hover:bg-green-50 rounded"
+                    >
+                      <Check size={16} />
+                    </button>
+                    <button
+                      onClick={handleCancelDescription}
+                      className="p-1 text-gray-500 hover:bg-gray-50 rounded"
+                    >
+                      <X size={16} />
+                    </button>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex items-start gap-2 group">
+                  <p className="text-gray-600 flex-1">
+                    {selectedTrip.description || t('trip.noDescription')}
+                  </p>
+                  <button
+                    onClick={handleStartEditDescription}
+                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-all mt-0.5"
+                  >
+                    <Edit size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
           
           <div className="flex items-center space-x-4">
@@ -97,10 +226,15 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
             
             <button
               onClick={onSaveTrip}
-              className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors flex items-center space-x-2"
+              disabled={isSaving}
+              className={`px-6 py-2 rounded-lg transition-colors flex items-center space-x-2 ${
+                isSaving 
+                  ? 'bg-gray-400 cursor-not-allowed' 
+                  : 'bg-green-500 hover:bg-green-600'
+              } text-white`}
             >
-              <Save size={20} />
-              <span>{t('planning.save')}</span>
+              <Save size={20} className={isSaving ? 'animate-spin' : ''} />
+              <span>{isSaving ? t('auth.syncing') : t('planning.save')}</span>
             </button>
           </div>
         </div>

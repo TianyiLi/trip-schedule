@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Calendar, MapPin, Clock, Navigation, Edit, Trash2, CheckCircle, Check, X } from 'lucide-react';
+import { Calendar, MapPin, Clock, Navigation, Edit, Trash2, CheckCircle } from 'lucide-react';
 import { format } from 'date-fns';
 import { Trip } from '../../../shared/types';
 import {
@@ -24,7 +24,6 @@ interface TripPreviewDrawerProps {
   onUncomplete: (tripId: string) => void;
   onNavigate: (trip: Trip) => void;
   onOpenLocation: (locationId: string) => void;
-  onUpdateTrip: (tripId: string, updates: { title?: string; description?: string }) => void;
 }
 
 const TripPreviewDrawer: React.FC<TripPreviewDrawerProps> = ({
@@ -37,154 +36,40 @@ const TripPreviewDrawer: React.FC<TripPreviewDrawerProps> = ({
   onUncomplete,
   onNavigate,
   onOpenLocation,
-  onUpdateTrip,
 }) => {
   const { t } = useTranslation();
-  const [editingTitle, setEditingTitle] = useState(false);
-  const [editingDescription, setEditingDescription] = useState(false);
-  const [tempTitle, setTempTitle] = useState('');
-  const [tempDescription, setTempDescription] = useState('');
 
   if (!trip) return null;
-
-  const handleStartEditTitle = () => {
-    setTempTitle(trip.title);
-    setEditingTitle(true);
-  };
-
-  const handleStartEditDescription = () => {
-    setTempDescription(trip.description);
-    setEditingDescription(true);
-  };
-
-  const handleSaveTitle = () => {
-    if (tempTitle.trim() && tempTitle !== trip.title) {
-      onUpdateTrip(trip.id, { title: tempTitle.trim() });
-    }
-    setEditingTitle(false);
-  };
-
-  const handleSaveDescription = () => {
-    if (tempDescription !== trip.description) {
-      onUpdateTrip(trip.id, { description: tempDescription });
-    }
-    setEditingDescription(false);
-  };
-
-  const handleCancelTitle = () => {
-    setTempTitle('');
-    setEditingTitle(false);
-  };
-
-  const handleCancelDescription = () => {
-    setTempDescription('');
-    setEditingDescription(false);
-  };
 
   const totalDays = Math.ceil((trip.endDate.getTime() - trip.startDate.getTime()) / (1000 * 60 * 60 * 24));
 
   return (
     <Drawer open={isOpen} onOpenChange={onClose} direction="right">
       <DrawerContent className="max-h-[96vh]">
-        <DrawerHeader>
-          <DrawerTitle>{t('trip.viewDetails')}</DrawerTitle>
-          <DrawerDescription className="flex items-center gap-2">
-            {editingTitle ? (
-              <div className="flex items-center gap-2 flex-1">
-                <input
-                  type="text"
-                  value={tempTitle}
-                  onChange={(e) => setTempTitle(e.target.value)}
-                  className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm"
-                  onKeyDown={(e) => {
-                    if (e.key === 'Enter') handleSaveTitle();
-                    if (e.key === 'Escape') handleCancelTitle();
-                  }}
-                  autoFocus
-                />
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleSaveTitle}
-                  className="h-6 w-6 p-0"
-                >
-                  <Check size={12} />
-                </Button>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleCancelTitle}
-                  className="h-6 w-6 p-0"
-                >
-                  <X size={12} />
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center gap-2 flex-1">
-                <span className="flex-1">{trip.title}</span>
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={handleStartEditTitle}
-                  className="h-6 w-6 p-0 opacity-60 hover:opacity-100"
-                >
-                  <Edit size={12} />
-                </Button>
-              </div>
+        <DrawerHeader className="border-b">
+          <DrawerTitle className="text-center text-lg font-medium text-muted-foreground">
+            {t('trip.viewDetails')}
+          </DrawerTitle>
+          
+          {/* Trip Title - Make it prominent */}
+          <div className="mt-4">
+            <h1 className="text-2xl font-bold text-foreground leading-tight">
+              {trip.title}
+            </h1>
+            
+            {/* Trip Description */}
+            {trip.description && (
+              <p className="text-base text-muted-foreground mt-2 leading-relaxed">
+                {trip.description}
+              </p>
             )}
-          </DrawerDescription>
+          </div>
         </DrawerHeader>
 
         <div className="flex-1 overflow-y-auto px-4 space-y-6">
           {/* Trip Info */}
           <div className="space-y-4">
             <div>
-              {editingDescription ? (
-                <div className="flex items-start gap-2 mb-4">
-                  <textarea
-                    value={tempDescription}
-                    onChange={(e) => setTempDescription(e.target.value)}
-                    className="flex-1 px-2 py-1 border border-gray-300 rounded text-sm min-h-[60px] resize-none"
-                    onKeyDown={(e) => {
-                      if (e.key === 'Enter' && e.ctrlKey) handleSaveDescription();
-                      if (e.key === 'Escape') handleCancelDescription();
-                    }}
-                    autoFocus
-                    placeholder={t('trip.description')}
-                  />
-                  <div className="flex flex-col gap-1">
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={handleSaveDescription}
-                      className="h-6 w-6 p-0"
-                    >
-                      <Check size={12} />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={handleCancelDescription}
-                      className="h-6 w-6 p-0"
-                    >
-                      <X size={12} />
-                    </Button>
-                  </div>
-                </div>
-              ) : (
-                <div className="flex items-start gap-2 mb-4">
-                  <p className="text-muted-foreground flex-1">{trip.description || t('trip.noDescription')}</p>
-                  <Button
-                    size="sm"
-                    variant="ghost"
-                    onClick={handleStartEditDescription}
-                    className="h-6 w-6 p-0 opacity-60 hover:opacity-100 mt-0.5"
-                  >
-                    <Edit size={12} />
-                  </Button>
-                </div>
-              )}
-
               {/* Status Badge */}
               {trip.isCompleted && (
                 <div className="inline-flex items-center bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium mb-4">

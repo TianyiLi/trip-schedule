@@ -47,7 +47,9 @@
     "restore": "恢復行程",
     "created": "建立於",
     "itinerary": "行程規劃",
-    "noLocations": "尚未新增地點"
+    "noLocations": "尚未新增地點",
+    "description": "描述",
+    "noDescription": "尚未提供描述"
   },
   "createTrip": {
     "title": "建立新行程",

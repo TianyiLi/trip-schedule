@@ -1,16 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useSearchParams, useNavigate } from 'react-router-dom';
 import { useTrip } from '../../../shared/contexts/TripContext';
+import { useGoogleAuth } from '../../../shared/contexts/GoogleAuthContext';
 import { Location, Trip } from '../../../shared/types';
 import { DropResult } from 'react-beautiful-dnd';
+import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 import TripPlanningView from '../components/TripPlanningView';
 
 const TripPlanningContainer: React.FC = () => {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const { state, reorderLocations, updateTrip } = useTrip();
+  const { t } = useTranslation();
+  const { state, reorderLocations, updateTrip, uploadToCloud } = useTrip();
+  const { isAuthenticated } = useGoogleAuth();
   const [selectedTrip, setSelectedTrip] = useState<Trip | null>(null);
   const [showAddLocation, setShowAddLocation] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Get trip ID from URL params and sync with context state
   useEffect(() => {
@@ -100,11 +106,35 @@ const TripPlanningContainer: React.FC = () => {
     setShowAddLocation(false);
   }, [selectedTrip, updateTrip]);
 
-  const handleSaveTrip = useCallback(() => {
-    if (selectedTrip) {
+  const handleSaveTrip = useCallback(async () => {
+    if (!selectedTrip) return;
+    
+    setIsSaving(true);
+    
+    try {
+      // Update local data first
       updateTrip({ ...selectedTrip, updatedAt: new Date() });
+      
+      // If authenticated, sync to cloud
+      if (isAuthenticated) {
+        await uploadToCloud();
+        toast.success(t('settings.messages.syncSuccess'));
+      } else {
+        toast.success(t('planning.save') + ' - ' + t('common.success'));
+      }
+    } catch (error) {
+      console.error('Save/sync error:', error);
+      
+      // Show different error messages based on context
+      if (isAuthenticated) {
+        toast.error(`${t('settings.messages.syncFailed')}. ${t('settings.messages.checkConnection')}`);
+      } else {
+        toast.error(t('common.error'));
+      }
+    } finally {
+      setIsSaving(false);
     }
-  }, [selectedTrip, updateTrip]);
+  }, [selectedTrip, updateTrip, isAuthenticated, uploadToCloud, t]);
 
   const handleBackToHome = useCallback(() => {
     navigate('/');
@@ -123,6 +153,19 @@ const TripPlanningContainer: React.FC = () => {
     setSelectedTrip(updatedTrip);
   }, [selectedTrip, updateTrip]);
 
+  const handleUpdateTrip = useCallback((updates: { title?: string; description?: string }) => {
+    if (!selectedTrip) return;
+    
+    const updatedTrip = {
+      ...selectedTrip,
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    updateTrip(updatedTrip);
+    setSelectedTrip(updatedTrip);
+  }, [selectedTrip, updateTrip]);
+
   return (
     <TripPlanningView
       selectedTrip={selectedTrip}
@@ -133,6 +176,8 @@ const TripPlanningContainer: React.FC = () => {
       onRemoveLocation={handleRemoveLocation}
       onSaveTrip={handleSaveTrip}
       onBackToHome={handleBackToHome}
+      onUpdateTrip={handleUpdateTrip}
+      isSaving={isSaving}
     />
   );
 };
