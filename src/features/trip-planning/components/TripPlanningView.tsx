@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { DragDropContext, Droppable, DropResult } from 'react-beautiful-dnd';
-import { Plus, MapPin, Save, ArrowLeft, Edit, Check, X } from 'lucide-react';
+import { Plus, MapPin, Save, ArrowLeft, Edit, Check, X, Calendar } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import { format } from 'date-fns';
 import LocationCard from '../../../shared/components/LocationCard';
 import AddLocationModal from './AddLocationModal';
 import { Location, Trip } from '../../../shared/types';
@@ -15,7 +16,7 @@ interface TripPlanningViewProps {
   onRemoveLocation: (locationId: string) => void;
   onSaveTrip: () => Promise<void>;
   onBackToHome: () => void;
-  onUpdateTrip: (updates: { title?: string; description?: string }) => void;
+  onUpdateTrip: (updates: { title?: string; description?: string; startDate?: Date; endDate?: Date }) => void;
   isSaving?: boolean;
 }
 
@@ -34,8 +35,11 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
   const { t } = useTranslation();
   const [editingTitle, setEditingTitle] = useState(false);
   const [editingDescription, setEditingDescription] = useState(false);
+  const [editingDates, setEditingDates] = useState(false);
   const [tempTitle, setTempTitle] = useState('');
   const [tempDescription, setTempDescription] = useState('');
+  const [tempStartDate, setTempStartDate] = useState('');
+  const [tempEndDate, setTempEndDate] = useState('');
 
   const handleStartEditTitle = () => {
     if (!selectedTrip) return;
@@ -47,6 +51,13 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
     if (!selectedTrip) return;
     setTempDescription(selectedTrip.description);
     setEditingDescription(true);
+  };
+
+  const handleStartEditDates = () => {
+    if (!selectedTrip) return;
+    setTempStartDate(selectedTrip.startDate.toISOString().split('T')[0]);
+    setTempEndDate(selectedTrip.endDate.toISOString().split('T')[0]);
+    setEditingDates(true);
   };
 
   const handleSaveTitle = () => {
@@ -63,6 +74,28 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
     setEditingDescription(false);
   };
 
+  const handleSaveDates = () => {
+    if (!selectedTrip) return;
+    
+    const startDate = new Date(tempStartDate);
+    const endDate = new Date(tempEndDate);
+    
+    // Validate dates
+    if (startDate > endDate) {
+      alert(t('createTrip.validation.endDateAfterStart'));
+      return;
+    }
+    
+    if (startDate.getTime() !== selectedTrip.startDate.getTime() || 
+        endDate.getTime() !== selectedTrip.endDate.getTime()) {
+      onUpdateTrip({ 
+        startDate,
+        endDate
+      });
+    }
+    setEditingDates(false);
+  };
+
   const handleCancelTitle = () => {
     setTempTitle('');
     setEditingTitle(false);
@@ -71,6 +104,12 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
   const handleCancelDescription = () => {
     setTempDescription('');
     setEditingDescription(false);
+  };
+
+  const handleCancelDates = () => {
+    setTempStartDate('');
+    setTempEndDate('');
+    setEditingDates(false);
   };
 
   if (!selectedTrip) {
@@ -145,7 +184,7 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
             </div>
             
             {/* Editable Description */}
-            <div>
+            <div className="mb-3">
               {editingDescription ? (
                 <div className="flex items-start gap-2">
                   <textarea
@@ -183,6 +222,58 @@ const TripPlanningView: React.FC<TripPlanningViewProps> = ({
                   <button
                     onClick={handleStartEditDescription}
                     className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-all mt-0.5"
+                  >
+                    <Edit size={14} />
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Editable Dates */}
+            <div>
+              {editingDates ? (
+                <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} className="text-blue-500" />
+                    <input
+                      type="date"
+                      value={tempStartDate}
+                      onChange={(e) => setTempStartDate(e.target.value)}
+                      className="border border-gray-300 rounded px-2 py-1 text-sm"
+                    />
+                    <span className="text-gray-500">-</span>
+                    <input
+                      type="date"
+                      value={tempEndDate}
+                      onChange={(e) => setTempEndDate(e.target.value)}
+                      className="border border-gray-300 rounded px-2 py-1 text-sm"
+                    />
+                  </div>
+                  <button
+                    onClick={handleSaveDates}
+                    className="p-1 text-green-600 hover:bg-green-50 rounded"
+                  >
+                    <Check size={16} />
+                  </button>
+                  <button
+                    onClick={handleCancelDates}
+                    className="p-1 text-gray-500 hover:bg-gray-50 rounded"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
+              ) : (
+                <div className="flex items-center gap-2 group">
+                  <Calendar size={16} className="text-blue-500" />
+                  <span className="text-gray-700 font-medium">
+                    {format(selectedTrip.startDate, 'MMM dd')} - {format(selectedTrip.endDate, 'MMM dd, yyyy')}
+                  </span>
+                  <span className="text-sm text-gray-500">
+                    ({Math.ceil((selectedTrip.endDate.getTime() - selectedTrip.startDate.getTime()) / (1000 * 60 * 60 * 24))} {t('trip.days')})
+                  </span>
+                  <button
+                    onClick={handleStartEditDates}
+                    className="opacity-0 group-hover:opacity-100 p-1 text-gray-400 hover:text-gray-600 hover:bg-gray-50 rounded transition-all"
                   >
                     <Edit size={14} />
                   </button>

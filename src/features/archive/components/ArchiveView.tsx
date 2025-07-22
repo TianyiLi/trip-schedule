@@ -33,8 +33,8 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
     <div className="max-w-7xl mx-auto">
       {/* Header */}
       <div className="mb-8">
-        <h1 className="text-4xl font-bold text-gray-800 mb-2">Archived Trips</h1>
-        <p className="text-gray-600">Your completed travel memories</p>
+        <h1 className="text-4xl font-bold text-gray-800 mb-2">{t('archived.title')}</h1>
+        <p className="text-gray-600">{t('archived.subtitle')}</p>
       </div>
 
       {/* Search */}
@@ -43,7 +43,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
           <Search className="absolute left-3 top-3 text-gray-400" size={20} />
           <input
             type="text"
-            placeholder="Search archived trips..."
+            placeholder={t('archived.search.placeholder')}
             value={searchTerm}
             onChange={(e) => onSearchChange(e.target.value)}
             className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -56,7 +56,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Completed Trips</p>
+              <p className="text-sm text-gray-600">{t('archived.stats.completedTrips')}</p>
               <p className="text-3xl font-bold text-green-600">{stats.completedTrips}</p>
             </div>
             <div className="bg-green-100 p-3 rounded-full">
@@ -68,7 +68,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Locations Visited</p>
+              <p className="text-sm text-gray-600">{t('archived.stats.totalLocationsVisited')}</p>
               <p className="text-3xl font-bold text-blue-600">{stats.totalLocations}</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-full">
@@ -80,7 +80,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
         <div className="bg-white rounded-xl shadow-lg p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600">Total Travel Days</p>
+              <p className="text-sm text-gray-600">{t('archived.stats.totalTravelDays')}</p>
               <p className="text-3xl font-bold text-purple-600">{stats.totalDays}</p>
             </div>
             <div className="bg-purple-100 p-3 rounded-full">
@@ -95,10 +95,10 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
         <div className="text-center py-12">
           <Archive size={48} className="mx-auto text-gray-400 mb-4" />
           <h3 className="text-xl font-semibold text-gray-600 mb-2">
-            {searchTerm ? 'No matching trips found' : 'No archived trips'}
+            {searchTerm ? t('archived.noTrips.searchTitle') : t('archived.noTrips.emptyTitle')}
           </h3>
           <p className="text-gray-500">
-            {searchTerm ? 'Try adjusting your search criteria' : 'Complete some trips to see them here'}
+            {searchTerm ? t('archived.noTrips.searchMessage') : t('archived.noTrips.emptyMessage')}
           </p>
         </div>
       ) : (
@@ -114,7 +114,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
                     <p className="text-gray-600 mb-3">{trip.description}</p>
                     
                     <div className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium inline-block mb-3">
-                      Completed
+                      {t('trip.completed')}
                     </div>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
                   
                   <div className="flex items-center text-gray-600">
                     <MapPin size={16} className="mr-2" />
-                    <span className="text-sm">{trip.locations.length} locations visited</span>
+                    <span className="text-sm">{trip.locations.length} {t('archived.locationsVisited')}</span>
                   </div>
                 </div>
 
@@ -146,7 +146,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
                     onClick={() => onExportTrip(trip)}
                     className="w-full bg-gradient-to-r from-green-500 to-blue-500 text-white py-2 rounded-lg hover:from-green-600 hover:to-blue-600 transition-all duration-200 font-medium"
                   >
-                    Export to CSV
+                    {t('archived.export')}
                   </button>
                   
                   <button
@@ -154,7 +154,7 @@ const ArchiveView: React.FC<ArchiveViewProps> = ({
                     className="w-full bg-red-100 text-red-600 py-2 rounded-lg hover:bg-red-200 transition-colors font-medium flex items-center justify-center space-x-2"
                   >
                     <Trash2 size={16} />
-                    <span>Delete Trip</span>
+                    <span>{t('archived.delete')}</span>
                   </button>
                 </div>
               </div>

@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from 'react';
 import { useTrip } from '../../../shared/contexts/TripContext';
 import { format } from 'date-fns';
+import { useTranslation } from 'react-i18next';
 import { Trip } from '../../../shared/types';
 import ArchiveView from '../components/ArchiveView';
 
 const ArchiveContainer: React.FC = () => {
   const { state, deleteTrip, uncompleteTrip } = useTrip();
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState('');
 
   const completedTrips = useMemo(() => {
@@ -37,7 +39,7 @@ const ArchiveContainer: React.FC = () => {
   }, [completedTrips]);
 
   const handleDeleteTrip = (tripId: string) => {
-    if (window.confirm('Are you sure you want to permanently delete this trip?')) {
+    if (window.confirm(t('archived.deleteConfirm'))) {
       deleteTrip(tripId);
     }
   };

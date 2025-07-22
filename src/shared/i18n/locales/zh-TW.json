@@ -67,7 +67,8 @@
       "create": "建立行程"
     },
     "validation": {
-      "requiredFields": "請填寫所有必填欄位"
+      "requiredFields": "請填寫所有必填欄位",
+      "endDateAfterStart": "結束日期必須在開始日期之後"
     }
   },
   "planning": {

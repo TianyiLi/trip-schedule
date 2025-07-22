@@ -67,7 +67,8 @@
       "create": "Create Trip"
     },
     "validation": {
-      "requiredFields": "Please fill in all required fields"
+      "requiredFields": "Please fill in all required fields",
+      "endDateAfterStart": "End date must be after start date"
     }
   },
   "planning": {

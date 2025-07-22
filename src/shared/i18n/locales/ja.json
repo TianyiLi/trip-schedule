@@ -65,7 +65,8 @@
       "create": "旅行を作成"
     },
     "validation": {
-      "requiredFields": "すべての必須フィールドを入力してください"
+      "requiredFields": "すべての必須フィールドを入力してください",
+      "endDateAfterStart": "終了日は開始日より後でなければなりません"
     }
   },
   "planning": {

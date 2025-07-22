@@ -153,7 +153,7 @@ const TripPlanningContainer: React.FC = () => {
     setSelectedTrip(updatedTrip);
   }, [selectedTrip, updateTrip]);
 
-  const handleUpdateTrip = useCallback((updates: { title?: string; description?: string }) => {
+  const handleUpdateTrip = useCallback((updates: { title?: string; description?: string; startDate?: Date; endDate?: Date }) => {
     if (!selectedTrip) return;
     
     const updatedTrip = {

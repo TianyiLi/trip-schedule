@@ -65,7 +65,8 @@
       "create": "创建行程"
     },
     "validation": {
-      "requiredFields": "请填写所有必填字段"
+      "requiredFields": "请填写所有必填字段",
+      "endDateAfterStart": "结束日期必须在开始日期之后"
     }
   },
   "planning": {

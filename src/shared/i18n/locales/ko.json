@@ -65,7 +65,8 @@
       "create": "여행 만들기"
     },
     "validation": {
-      "requiredFields": "모든 필수 필드를 입력해 주세요"
+      "requiredFields": "모든 필수 필드를 입력해 주세요",
+      "endDateAfterStart": "종료 날짜는 시작 날짜 이후여야 합니다"
     }
   },
   "planning": {
